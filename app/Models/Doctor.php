@@ -24,7 +24,7 @@ class Doctor extends Model
 
     public function prescriptions()
     {
-        return $this->belongsToMany(Drug::class, 'prescriptions', 'phys_id', 'trade_name')
+        return $this->belongsToMany(Drug::class, 'prescriptions', 'doctor_id', 'drug_trade_name')
             ->withPivot('date_prescribed', 'quantity')
             ->withTimestamps();
     }

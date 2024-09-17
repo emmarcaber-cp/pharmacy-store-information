@@ -11,7 +11,7 @@ class Drug extends Model
     use HasFactory;
 
     protected $primaryKey = 'trade_name';
-    protected $incrementing = false;
+    public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
@@ -21,12 +21,12 @@ class Drug extends Model
 
     public function drugManufacturer(): BelongsTo
     {
-        return $this->belongsTo(DrugManufacturer::class);
+        return $this->belongsTo(DrugManufacturer::class, 'drug_manufacturer_id', 'company_id');
     }
 
     public function prescriptions()
     {
-        return $this->belongsToMany(Patient::class, 'prescriptions', 'trade_name', 'PID')
+        return $this->belongsToMany(Patient::class, 'prescriptions', 'drug_trade_name', 'patient_id')
             ->withPivot('date_prescribed', 'quantity')
             ->withTimestamps();
     }

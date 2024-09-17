@@ -27,7 +27,7 @@ class Pharmacy extends Model
 
     public function employees(): BelongsToMany
     {
-        return $this->belongsToMany(Employee::class, 'works', 'phar_id', 'employee_id')
+        return $this->belongsToMany(Employee::class, 'works', 'pharmacy_id', 'employee_id')
             ->withPivot('shift_start', 'shift_end')
             ->withTimestamps();
     }

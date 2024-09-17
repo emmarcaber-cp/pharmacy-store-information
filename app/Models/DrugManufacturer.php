@@ -20,12 +20,12 @@ class DrugManufacturer extends Model
 
     public function drugs(): HasMany
     {
-        return $this->hasMany(Drug::class);
+        return $this->hasMany(Drug::class, 'drug_manufacturer_id', 'company_id');
     }
 
     public function contracts(): BelongsToMany
     {
-        return $this->belongsToMany(Pharmacy::class, 'contracts', 'company_id', 'phar_id')
+        return $this->belongsToMany(Pharmacy::class, 'contracts', 'drug_manufacturer_id', 'phar_id')
             ->withPivot('start_date', 'end_date')
             ->withTimestamps();
     }
