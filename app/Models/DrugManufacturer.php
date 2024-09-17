@@ -10,6 +10,8 @@ class DrugManufacturer extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'company_id';
+
     protected $fillable = [
         'name',
         'address',

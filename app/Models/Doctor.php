@@ -10,6 +10,8 @@ class Doctor extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'phys_id';
+
     protected $fillable = [
         'd_name',
         'specialty',
