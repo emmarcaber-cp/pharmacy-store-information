@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('prescriptions', function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('patient_id');
             $table->string('drug_trade_name');
             $table->unsignedBigInteger('doctor_id');
@@ -35,8 +34,8 @@ return new class extends Migration
                 ->on('doctors')
                 ->onDelete('cascade');
 
-
             $table->unique(['patient_id', 'drug_trade_name', 'doctor_id']);
+            $table->primary(['patient_id', 'drug_trade_name', 'doctor_id']);
         });
     }
 
