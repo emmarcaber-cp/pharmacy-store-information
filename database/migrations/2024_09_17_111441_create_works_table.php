@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('works', function (Blueprint $table) {
             $table->unsignedBigInteger('employee_id');
-            $table->unsignedInteger('pharmacy_id');
+            $table->unsignedBigInteger('pharmacy_id');
             $table->datetime('shift_start');
             $table->datetime('shift_end');
             $table->timestamps();
