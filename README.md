@@ -1,7 +1,7 @@
-# Pharmacy Information System
+# Pharmacy Store Information
 ## Overview
 
-The Pharmacy Information System is a Laravel application designed to manage pharmacies, employees, patients, and drug manufacturers. The application includes features for managing pharmacy records, employee assignments, patient prescriptions, and drug manufacturer contracts.
+The Pharmacy Store Information is a Laravel application designed to manage pharmacies, employees, patients, and drug manufacturers. The application includes features for managing pharmacy records, employee assignments, patient prescriptions, and drug manufacturer contracts.
 
 ## Features
 
@@ -53,7 +53,7 @@ The Pharmacy Information System is a Laravel application designed to manage phar
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
-    DB_DATABASE=pharmacy_information_system
+    DB_DATABASE=pharmacy_store_information
     DB_USERNAME=root
     DB_PASSWORD=
     ```
