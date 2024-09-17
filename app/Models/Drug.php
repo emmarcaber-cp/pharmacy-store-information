@@ -12,7 +12,7 @@ class Drug extends Model
 
     protected $fillable = [
         'trade_name',
-        'manufacturer_id',
+        'drug_manufacturer_id',
     ];
 
     public function manufacturer(): BelongsTo
