@@ -19,8 +19,15 @@ class Drug extends Model
         'drug_manufacturer_id',
     ];
 
-    public function manufacturer(): BelongsTo
+    public function drugManufacturer(): BelongsTo
     {
         return $this->belongsTo(DrugManufacturer::class);
+    }
+
+    public function prescriptions()
+    {
+        return $this->belongsToMany(Patient::class, 'prescriptions', 'trade_name', 'PID')
+            ->withPivot('date_prescribed', 'quantity')
+            ->withTimestamps();
     }
 }

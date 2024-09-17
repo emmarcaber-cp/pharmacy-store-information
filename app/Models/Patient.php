@@ -20,8 +20,15 @@ class Patient extends Model
         'doctor_id',
     ];
 
-    public function seenBy(): BelongsTo
+    public function doctor(): BelongsTo
     {
         return $this->belongsTo(Doctor::class, 'doctor_id', 'phys_id');
+    }
+
+    public function prescriptions()
+    {
+        return $this->belongsToMany(Drug::class, 'prescriptions', 'PID', 'trade_name')
+            ->withPivot('date_prescribed', 'quantity')
+            ->withTimestamps();
     }
 }
