@@ -21,4 +21,11 @@ class Doctor extends Model
     {
         return $this->hasMany(Patient::class, 'doctor_id', 'phys_id');
     }
+
+    public function prescriptions()
+    {
+        return $this->belongsToMany(Drug::class, 'prescriptions', 'phys_id', 'trade_name')
+            ->withPivot('date_prescribed', 'quantity')
+            ->withTimestamps();
+    }
 }
