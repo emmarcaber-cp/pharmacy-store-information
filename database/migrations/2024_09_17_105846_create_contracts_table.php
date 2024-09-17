@@ -28,6 +28,8 @@ return new class extends Migration
                 ->references('company_id')
                 ->on('drug_manufacturers')
                 ->onDelete('cascade');
+
+            $table->primary('phar_id', 'drug_manufacturer_id');
         });
     }
 
