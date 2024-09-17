@@ -10,6 +10,10 @@ class Drug extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'trade_name';
+    protected $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         'trade_name',
         'drug_manufacturer_id',
