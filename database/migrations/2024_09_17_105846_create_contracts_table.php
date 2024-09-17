@@ -29,7 +29,7 @@ return new class extends Migration
                 ->on('drug_manufacturers')
                 ->onDelete('cascade');
 
-            $table->primary('phar_id', 'drug_manufacturer_id');
+            $table->primary(['phar_id', 'drug_manufacturer_id']);
         });
     }
 
