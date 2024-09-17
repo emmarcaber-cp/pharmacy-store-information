@@ -24,4 +24,11 @@ class Pharmacy extends Model
             ->withPivot('start_date', 'end_date')
             ->withTimestamps();
     }
+
+    public function employees(): BelongsToMany
+    {
+        return $this->belongsToMany(Employee::class, 'works', 'phar_id', 'employee_id')
+            ->withPivot('shift_start', 'shift_end')
+            ->withTimestamps();
+    }
 }
