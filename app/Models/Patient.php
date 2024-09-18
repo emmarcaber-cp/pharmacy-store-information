@@ -10,9 +10,6 @@ class Patient extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'PID';
-    public $incrementing = true;
-
     protected $fillable = [
         'name',
         'sex',
@@ -23,12 +20,12 @@ class Patient extends Model
 
     public function doctor(): BelongsTo
     {
-        return $this->belongsTo(Doctor::class, 'doctor_id', 'phys_id');
+        return $this->belongsTo(Doctor::class);
     }
 
-    public function prescriptions()
+    public function drugs()
     {
-        return $this->belongsToMany(Drug::class, 'prescriptions', 'patient_id', 'drug_trade_name')
+        return $this->belongsToMany(Drug::class, 'prescriptions', 'patient_id', 'drug_id')
             ->withPivot('date_prescribed', 'quantity')
             ->withTimestamps();
     }

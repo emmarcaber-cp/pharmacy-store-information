@@ -11,8 +11,6 @@ class DrugManufacturer extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'company_id';
-
     protected $fillable = [
         'name',
         'address',
@@ -20,12 +18,12 @@ class DrugManufacturer extends Model
 
     public function drugs(): HasMany
     {
-        return $this->hasMany(Drug::class, 'drug_manufacturer_id', 'company_id');
+        return $this->hasMany(Drug::class);
     }
 
-    public function contracts(): BelongsToMany
+    public function pharmacies(): BelongsToMany
     {
-        return $this->belongsToMany(Pharmacy::class, 'contracts', 'drug_manufacturer_id', 'phar_id')
+        return $this->belongsToMany(Pharmacy::class, 'contracts', 'drug_manufacturer_id', 'pharmacy_id')
             ->withPivot('start_date', 'end_date')
             ->withTimestamps();
     }
