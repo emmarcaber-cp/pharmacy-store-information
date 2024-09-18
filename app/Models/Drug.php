@@ -10,10 +10,6 @@ class Drug extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'trade_name';
-    public $incrementing = false;
-    protected $keyType = 'string';
-
     protected $fillable = [
         'trade_name',
         'drug_manufacturer_id',
@@ -21,13 +17,27 @@ class Drug extends Model
 
     public function drugManufacturer(): BelongsTo
     {
-        return $this->belongsTo(DrugManufacturer::class, 'drug_manufacturer_id', 'company_id');
+        return $this->belongsTo(DrugManufacturer::class);
     }
 
-    public function prescriptions()
+    public function patients()
     {
-        return $this->belongsToMany(Patient::class, 'prescriptions', 'drug_trade_name', 'patient_id')
+        return $this->belongsToMany(Patient::class, 'prescriptions', 'drug_id', 'patient_id')
             ->withPivot('date_prescribed', 'quantity')
+            ->withTimestamps();
+    }
+
+    public function doctors()
+    {
+        return $this->belongsToMany(Doctor::class, 'prescriptions', 'drug_id', 'doctor_id')
+            ->withPivot('date_prescribed', 'quantity')
+            ->withTimestamps();
+    }
+
+    public function pharmacies()
+    {
+        return $this->belongsToMany(Pharmacy::class, 'pharmacy_drugs', 'drug_id', 'pharmacy_id')
+            ->withPivot('price')
             ->withTimestamps();
     }
 }
