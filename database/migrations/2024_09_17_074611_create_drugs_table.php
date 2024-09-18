@@ -12,14 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('drugs', function (Blueprint $table) {
-            $table->string('trade_name')->primary();
-            $table->unsignedBigInteger('drug_manufacturer_id');
+            $table->id();
+            $table->foreignId('drug_manufacturer_id')->constrained();
+            $table->string('trade_name');
             $table->timestamps();
-
-            $table->foreign('drug_manufacturer_id')
-                ->references('company_id')
-                ->on('drug_manufacturers')
-                ->onDelete('cascade');
         });
     }
 
@@ -28,10 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('drugs', function (Blueprint $table) {
-            $table->dropForeign(['drug_manufacturer_id']);
-        });
-
         Schema::dropIfExists('drugs');
     }
 };
