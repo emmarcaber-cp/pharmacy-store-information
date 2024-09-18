@@ -33,7 +33,7 @@ class Pharmacy extends Model
      *
      * @return BelongsToMany
      */
-    public function contracts(): BelongsToMany
+    public function drugManufacturers(): BelongsToMany
     {
         return $this->belongsToMany(DrugManufacturer::class, 'contracts', 'pharmacy_id', 'drug_manufacturer_id')
             ->withPivot('start_date', 'end_date')
