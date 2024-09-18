@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pharmacy_id')->constrained();
             $table->foreignId('drug_id')->constrained();
-            $table->float('price')->default(0);
+            $table->decimal('price', 10, 2)->unsigned()->default(0.00);
             $table->timestamps();
         });
     }
