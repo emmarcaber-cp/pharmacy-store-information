@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('drug_manufacturers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('address');
+            $table->string('address');
             $table->timestamps();
         });
     }

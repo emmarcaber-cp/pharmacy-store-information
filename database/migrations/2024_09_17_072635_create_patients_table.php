@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('doctor_id')->constrained();
             $table->string('name');
             $table->string('sex');
-            $table->text('address');
+            $table->string('address');
             $table->string('contact_no');
             $table->timestamps();
         });
