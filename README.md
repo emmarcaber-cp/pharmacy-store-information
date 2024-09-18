@@ -15,9 +15,9 @@ The Pharmacy Store Information is a Laravel application designed to manage pharm
 
 ### Prerequisites
 
--   PHP >= 8.0
+-   PHP >= 8.2
 -   Composer
--   Laravel >= 10.x
+-   Laravel >= 11.x
 -   MySQL or another supported database
 
 ### Steps
