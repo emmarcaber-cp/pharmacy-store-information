@@ -19,7 +19,7 @@ class DrugFactory extends Factory
     {
         return [
             'trade_name' => $this->faker->word,
-            'drug_manufacturer_id' => DrugManufacturer::factory()->create()->company_id,
+            'drug_manufacturer_id' => DrugManufacturer::factory()->create()->id,
         ];
     }
 }

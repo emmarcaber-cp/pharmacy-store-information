@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('doctors', function (Blueprint $table) {
-            $table->bigIncrements('phys_id');
-            $table->string('d_name');
+            $table->id();
+            $table->string('name');
             $table->string('specialty');
             $table->timestamps();
         });

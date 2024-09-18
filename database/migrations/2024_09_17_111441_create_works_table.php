@@ -12,23 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('works', function (Blueprint $table) {
-            $table->unsignedBigInteger('employee_id');
-            $table->unsignedBigInteger('pharmacy_id');
+            $table->id();
+            $table->foreignId('employee_id')->constrained();
+            $table->foreignId('pharmacy_id')->constrained();
             $table->datetime('shift_start');
             $table->datetime('shift_end');
             $table->timestamps();
-
-            $table->foreign('employee_id')
-                ->references('employee_id')
-                ->on('employees')
-                ->onDelete('cascade');
-
-            $table->foreign('pharmacy_id')
-                ->references('phar_id')
-                ->on('pharmacies')
-                ->onDelete('cascade');
-
-            $table->primary(['employee_id', 'shift_start', 'shift_end']);
         });
     }
 
