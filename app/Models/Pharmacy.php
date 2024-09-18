@@ -16,6 +16,11 @@ class Pharmacy extends Model
         'fax',
     ];
 
+    /**
+     * The drugs that are available in the pharmacy.
+     *
+     * @return BelongsToMany
+     */
     public function drugs(): BelongsToMany
     {
         return $this->belongsToMany(Drug::class, 'pharmacy_drugs', 'pharmacy_id', 'drug_id')
@@ -23,6 +28,11 @@ class Pharmacy extends Model
             ->withTimestamps();
     }
 
+    /**
+     * The drug manufacturers that the pharmacy has contracts with.
+     *
+     * @return BelongsToMany
+     */
     public function contracts(): BelongsToMany
     {
         return $this->belongsToMany(DrugManufacturer::class, 'contracts', 'pharmacy_id', 'drug_manufacturer_id')

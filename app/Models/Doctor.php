@@ -31,6 +31,11 @@ class Doctor extends Model
         return $this->hasMany(Patient::class);
     }
 
+    /**
+     * The drugs that the doctor has prescribed.
+     *
+     * @return BelongsToMany
+     */
     public function drugs(): BelongsToMany
     {
         return $this->belongsToMany(Drug::class, 'prescriptions', 'doctor_id', 'drug_manufacturer_id')

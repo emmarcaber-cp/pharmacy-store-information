@@ -19,11 +19,21 @@ class Patient extends Model
         'contact_no',
     ];
 
+    /**
+     * Get the doctor that the patient is assigned to.
+     *
+     * @return BelongsTo
+     */
     public function doctor(): BelongsTo
     {
         return $this->belongsTo(Doctor::class);
     }
 
+    /**
+     * The drugs that have been prescribed to the patient.
+     *
+     * @return BelongsToMany
+     */
     public function drugs(): BelongsToMany
     {
         return $this->belongsToMany(Drug::class, 'prescriptions', 'patient_id', 'drug_id')

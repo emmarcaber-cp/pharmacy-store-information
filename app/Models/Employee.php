@@ -14,6 +14,11 @@ class Employee extends Model
         'name',
     ];
 
+    /**
+     * The pharmacies that the employee is assigned to.
+     * 
+     * @return BelongsToMany
+     */
     public function pharmacies(): BelongsToMany
     {
         return $this->belongsToMany(Pharmacy::class, 'schedules', 'employee_id', 'pharmacy_id')

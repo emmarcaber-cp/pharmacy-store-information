@@ -16,11 +16,21 @@ class Drug extends Model
         'drug_manufacturer_id',
     ];
 
+    /**
+     * Get the drug manufacturer that owns the Drug.
+     * 
+     * @return BelongsTo
+     */
     public function drugManufacturer(): BelongsTo
     {
         return $this->belongsTo(DrugManufacturer::class);
     }
 
+    /**
+     * The patients that have been prescribed this drug.
+     * 
+     * @return BelongsToMany
+     */
     public function patients(): BelongsToMany
     {
         return $this->belongsToMany(Patient::class, 'prescriptions', 'drug_id', 'patient_id')
@@ -28,6 +38,9 @@ class Drug extends Model
             ->withTimestamps();
     }
 
+    /**
+     * The doctors that prescribes to this drug.
+     */
     public function doctors(): BelongsToMany
     {
         return $this->belongsToMany(Doctor::class, 'prescriptions', 'drug_id', 'doctor_id')
@@ -35,6 +48,9 @@ class Drug extends Model
             ->withTimestamps();
     }
 
+    /**
+     * The pharmacies that sells this drugs.
+     */
     public function pharmacies()
     {
         return $this->belongsToMany(Pharmacy::class, 'pharmacy_drugs', 'drug_id', 'pharmacy_id')
