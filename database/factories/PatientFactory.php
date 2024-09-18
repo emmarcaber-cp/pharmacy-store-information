@@ -16,7 +16,7 @@ class PatientFactory extends Factory
             'sex' => $this->faker->randomElement(['Male', 'Female']),
             'address' => $this->faker->address,
             'contact_no' => $this->faker->phoneNumber,
-            'doctor_id' => Doctor::factory()->create()->phys_id,
+            'doctor_id' => Doctor::factory()->create()->id,
         ];
     }
 }
