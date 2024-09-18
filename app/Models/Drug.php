@@ -24,14 +24,14 @@ class Drug extends Model
     public function patients(): BelongsToMany
     {
         return $this->belongsToMany(Patient::class, 'prescriptions', 'drug_id', 'patient_id')
-            ->withPivot('date_prescribed', 'quantity')
+            ->withPivot('prescribed_at', 'quantity')
             ->withTimestamps();
     }
 
     public function doctors(): BelongsToMany
     {
         return $this->belongsToMany(Doctor::class, 'prescriptions', 'drug_id', 'doctor_id')
-            ->withPivot('date_prescribed', 'quantity')
+            ->withPivot('prescribed_at', 'quantity')
             ->withTimestamps();
     }
 

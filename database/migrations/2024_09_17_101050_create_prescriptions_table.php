@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('doctor_id')->constrained();
             $table->foreignId('patient_id')->constrained();
             $table->foreignId('drug_id')->constrained();
-            $table->date('date_prescribed');
-            $table->unsignedInteger('quantity');
+            $table->unsignedInteger('quantity')->default(0);
+            $table->datetime('prescribed_at');
             $table->timestamps();
         });
     }

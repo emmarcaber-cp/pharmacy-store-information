@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('pharmacies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('address');
-            $table->string('fax');
+            $table->string('name')->default('');
+            $table->string('address')->default('');
+            $table->string('fax')->default('');
             $table->timestamps();
         });
     }

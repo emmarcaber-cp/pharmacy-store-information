@@ -27,7 +27,7 @@ class Patient extends Model
     public function drugs(): BelongsToMany
     {
         return $this->belongsToMany(Drug::class, 'prescriptions', 'patient_id', 'drug_id')
-            ->withPivot('date_prescribed', 'quantity')
+            ->withPivot('prescribed_at', 'quantity')
             ->withTimestamps();
     }
 }

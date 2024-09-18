@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->foreignId('doctor_id')->constrained();
-            $table->string('name');
-            $table->string('sex');
-            $table->string('address');
-            $table->string('contact_no');
+            $table->string('name')->default('');
+            $table->string('sex')->default('');
+            $table->string('address')->default('');
+            $table->string('contact_no')->default('');
             $table->timestamps();
         });
     }

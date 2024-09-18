@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('drugs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('drug_manufacturer_id')->constrained();
-            $table->string('trade_name');
+            $table->string('trade_name')->default('');
             $table->timestamps();
         });
     }
