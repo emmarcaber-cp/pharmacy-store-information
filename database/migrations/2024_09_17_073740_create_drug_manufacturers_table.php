@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('drug_manufacturers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('address');
+            $table->string('name')->default('');
+            $table->string('address')->default('');
             $table->timestamps();
         });
     }

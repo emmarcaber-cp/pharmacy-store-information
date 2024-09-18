@@ -5,31 +5,39 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Patient extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'PID';
-    public $incrementing = true;
-
     protected $fillable = [
+        'doctor_id',
         'name',
         'sex',
         'address',
         'contact_no',
-        'doctor_id',
     ];
 
+    /**
+     * Get the doctor that the patient is assigned to.
+     *
+     * @return BelongsTo
+     */
     public function doctor(): BelongsTo
     {
-        return $this->belongsTo(Doctor::class, 'doctor_id', 'phys_id');
+        return $this->belongsTo(Doctor::class);
     }
 
-    public function prescriptions()
+    /**
+     * The drugs that have been prescribed to the patient.
+     *
+     * @return BelongsToMany
+     */
+    public function drugs(): BelongsToMany
     {
-        return $this->belongsToMany(Drug::class, 'prescriptions', 'patient_id', 'drug_trade_name')
-            ->withPivot('date_prescribed', 'quantity')
+        return $this->belongsToMany(Drug::class, 'prescriptions', 'patient_id', 'drug_id')
+            ->withPivot('prescribed_at', 'quantity')
             ->withTimestamps();
     }
 }

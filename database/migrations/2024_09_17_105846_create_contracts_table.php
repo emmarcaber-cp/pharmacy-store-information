@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pharmacy_id')->constrained();
             $table->foreignId('drug_manufacturer_id')->constrained();
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->datetime('start_date');
+            $table->datetime('end_date');
             $table->timestamps();
         });
     }

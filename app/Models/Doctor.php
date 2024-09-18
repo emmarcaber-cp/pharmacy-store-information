@@ -4,28 +4,42 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $phys_id
+ * @property string $d_name
+ * @property string $specialty
+ */
 class Doctor extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'phys_id';
-
     protected $fillable = [
-        'd_name',
+        'name',
         'specialty',
     ];
 
+    /**
+     * Get the patients assigned to the doctor.
+     *
+     * @return HasMany
+     */
     public function patients(): HasMany
     {
-        return $this->hasMany(Patient::class, 'doctor_id', 'phys_id');
+        return $this->hasMany(Patient::class);
     }
 
-    public function prescriptions()
+    /**
+     * The drugs that the doctor has prescribed.
+     *
+     * @return BelongsToMany
+     */
+    public function drugs(): BelongsToMany
     {
-        return $this->belongsToMany(Drug::class, 'prescriptions', 'doctor_id', 'drug_trade_name')
-            ->withPivot('date_prescribed', 'quantity')
+        return $this->belongsToMany(Drug::class, 'prescriptions', 'doctor_id', 'drug_manufacturer_id')
+            ->withPivot('prescribed_at', 'quantity')
             ->withTimestamps();
     }
 }

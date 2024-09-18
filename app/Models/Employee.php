@@ -10,15 +10,18 @@ class Employee extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'employee_id';
-
     protected $fillable = [
         'name',
     ];
 
-    public function works(): BelongsToMany
+    /**
+     * The pharmacies that the employee is assigned to.
+     * 
+     * @return BelongsToMany
+     */
+    public function pharmacies(): BelongsToMany
     {
-        return $this->belongsToMany(Pharmacy::class, 'works', 'employee_id', 'pharmacy_id')
+        return $this->belongsToMany(Pharmacy::class, 'schedules', 'employee_id', 'pharmacy_id')
             ->withPivot('shift_start', 'shift_end')
             ->withTimestamps();
     }
