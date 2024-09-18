@@ -14,7 +14,7 @@ class Employee extends Model
         'name',
     ];
 
-    public function works(): BelongsToMany
+    public function pharmacies(): BelongsToMany
     {
         return $this->belongsToMany(Pharmacy::class, 'works', 'employee_id', 'pharmacy_id')
             ->withPivot('shift_start', 'shift_end')

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Drug extends Model
 {
@@ -20,14 +21,14 @@ class Drug extends Model
         return $this->belongsTo(DrugManufacturer::class);
     }
 
-    public function patients()
+    public function patients(): BelongsToMany
     {
         return $this->belongsToMany(Patient::class, 'prescriptions', 'drug_id', 'patient_id')
             ->withPivot('date_prescribed', 'quantity')
             ->withTimestamps();
     }
 
-    public function doctors()
+    public function doctors(): BelongsToMany
     {
         return $this->belongsToMany(Doctor::class, 'prescriptions', 'drug_id', 'doctor_id')
             ->withPivot('date_prescribed', 'quantity')
