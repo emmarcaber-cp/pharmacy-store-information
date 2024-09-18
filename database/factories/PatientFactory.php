@@ -12,11 +12,11 @@ class PatientFactory extends Factory
     public function definition()
     {
         return [
+            'doctor_id' => Doctor::factory()->create()->id,
             'name' => $this->faker->name,
             'sex' => $this->faker->randomElement(['Male', 'Female']),
             'address' => $this->faker->address,
             'contact_no' => $this->faker->phoneNumber,
-            'doctor_id' => Doctor::factory()->create()->id,
         ];
     }
 }
