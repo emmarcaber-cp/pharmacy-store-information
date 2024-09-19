@@ -37,7 +37,7 @@ class DrugManufacturerPolicy
      */
     public function update(User $user, DrugManufacturer $drugManufacturer): bool
     {
-        return $user->id === $drugManufacturer->user->auth_id;
+        return $user->is_drug_manufacturer && $user->id === $drugManufacturer->user->auth_id;
     }
 
     /**

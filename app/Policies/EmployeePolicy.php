@@ -37,7 +37,7 @@ class EmployeePolicy
      */
     public function update(User $user, Employee $employee): bool
     {
-        return $user->id === $employee->user->auth_id;
+        return $user->is_employee && $user->id === $employee->user->auth_id;
     }
 
     /**

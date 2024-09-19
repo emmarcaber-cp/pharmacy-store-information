@@ -45,7 +45,7 @@ class PharmacyPolicy
      */
     public function update(User $user, Pharmacy $pharmacy): bool
     {
-        return $user->id === $pharmacy->user->auth_id;
+        return $user->is_pharmacy && $user->id === $pharmacy->user->auth_id;
     }
 
     /**
