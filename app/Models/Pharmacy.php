@@ -23,9 +23,7 @@ class Pharmacy extends Model
      */
     public function drugs(): BelongsToMany
     {
-        return $this->belongsToMany(Drug::class, 'pharmacy_drugs', 'pharmacy_id', 'drug_id')
-            ->using(PharmacyDrug::class)
-            ->withPivot('price')
+        return $this->belongsToMany(Drug::class)
             ->withTimestamps();
     }
 
@@ -36,9 +34,7 @@ class Pharmacy extends Model
      */
     public function drugManufacturers(): BelongsToMany
     {
-        return $this->belongsToMany(DrugManufacturer::class, 'contracts', 'pharmacy_id', 'drug_manufacturer_id')
-            ->using(Contract::class)
-            ->withPivot('start_date', 'end_date')
+        return $this->belongsToMany(DrugManufacturer::class, 'contracts')
             ->withTimestamps();
     }
 
@@ -49,9 +45,7 @@ class Pharmacy extends Model
      */
     public function employees(): BelongsToMany
     {
-        return $this->belongsToMany(Employee::class, 'schedules', 'pharmacy_id', 'employee_id')
-            ->using(Schedule::class)
-            ->withPivot('shift_start', 'shift_end')
+        return $this->belongsToMany(Employee::class, 'schedules')
             ->withTimestamps();
     }
 }

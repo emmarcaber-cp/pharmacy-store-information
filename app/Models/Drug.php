@@ -33,9 +33,7 @@ class Drug extends Model
      */
     public function patients(): BelongsToMany
     {
-        return $this->belongsToMany(Patient::class, 'prescriptions', 'drug_id', 'patient_id')
-            ->using(Prescription::class)
-            ->withPivot('prescribed_at', 'quantity')
+        return $this->belongsToMany(Patient::class, 'prescriptions')
             ->withTimestamps();
     }
 
@@ -44,9 +42,7 @@ class Drug extends Model
      */
     public function doctors(): BelongsToMany
     {
-        return $this->belongsToMany(Doctor::class, 'prescriptions', 'drug_id', 'doctor_id')
-            ->using(Prescription::class)
-            ->withPivot('prescribed_at', 'quantity')
+        return $this->belongsToMany(Doctor::class, 'prescriptions')
             ->withTimestamps();
     }
 
@@ -55,9 +51,7 @@ class Drug extends Model
      */
     public function pharmacies()
     {
-        return $this->belongsToMany(Pharmacy::class, 'pharmacy_drugs', 'drug_id', 'pharmacy_id')
-            ->using(PharmacyDrug::class)
-            ->withPivot('price')
+        return $this->belongsToMany(Pharmacy::class)
             ->withTimestamps();
     }
 }
