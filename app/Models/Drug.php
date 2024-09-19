@@ -12,8 +12,8 @@ class Drug extends Model
     use HasFactory;
 
     protected $fillable = [
-        'trade_name',
         'drug_manufacturer_id',
+        'trade_name',
     ];
 
     /**
@@ -34,6 +34,7 @@ class Drug extends Model
     public function patients(): BelongsToMany
     {
         return $this->belongsToMany(Patient::class, 'prescriptions', 'drug_id', 'patient_id')
+            ->using(Prescription::class)
             ->withPivot('prescribed_at', 'quantity')
             ->withTimestamps();
     }
@@ -44,6 +45,7 @@ class Drug extends Model
     public function doctors(): BelongsToMany
     {
         return $this->belongsToMany(Doctor::class, 'prescriptions', 'drug_id', 'doctor_id')
+            ->using(Prescription::class)
             ->withPivot('prescribed_at', 'quantity')
             ->withTimestamps();
     }
@@ -54,6 +56,7 @@ class Drug extends Model
     public function pharmacies()
     {
         return $this->belongsToMany(Pharmacy::class, 'pharmacy_drugs', 'drug_id', 'pharmacy_id')
+            ->using(PharmacyDrug::class)
             ->withPivot('price')
             ->withTimestamps();
     }

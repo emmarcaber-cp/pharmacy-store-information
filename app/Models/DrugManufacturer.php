@@ -34,6 +34,7 @@ class DrugManufacturer extends Model
     public function pharmacies(): BelongsToMany
     {
         return $this->belongsToMany(Pharmacy::class, 'contracts', 'drug_manufacturer_id', 'pharmacy_id')
+            ->using(Contract::class)
             ->withPivot('start_date', 'end_date')
             ->withTimestamps();
     }
