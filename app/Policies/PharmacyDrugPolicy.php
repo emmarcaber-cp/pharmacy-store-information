@@ -13,7 +13,11 @@ class PharmacyDrugPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view any pharmacy drug');
+        return $user->is_drug_manufacturer ||
+            $user->is_pharmacy ||
+            $user->is_patient ||
+            $user->is_doctor ||
+            $user->is_employee;
     }
 
     /**
@@ -21,7 +25,11 @@ class PharmacyDrugPolicy
      */
     public function view(User $user, PharmacyDrug $pharmacyDrug): bool
     {
-        return $user->can('view pharmacy drug');
+        return $user->is_drug_manufacturer ||
+            $user->is_pharmacy ||
+            $user->is_patient ||
+            $user->is_doctor ||
+            $user->is_employee;
     }
 
     /**
@@ -29,7 +37,7 @@ class PharmacyDrugPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create pharmacy drug');
+        return $user->is_pharmacy;
     }
 
     /**
@@ -37,7 +45,7 @@ class PharmacyDrugPolicy
      */
     public function update(User $user, PharmacyDrug $pharmacyDrug): bool
     {
-        return $user->can('update pharmacy drug');
+        return $user->id === $pharmacyDrug->pharmacy->user->auth_id;
     }
 
     /**
@@ -45,7 +53,7 @@ class PharmacyDrugPolicy
      */
     public function delete(User $user, PharmacyDrug $pharmacyDrug): bool
     {
-        return $user->can('delete pharmacy drug');
+        return $user->id === $pharmacyDrug->pharmacy->user->auth_id;
     }
 
     /**
@@ -53,7 +61,7 @@ class PharmacyDrugPolicy
      */
     public function restore(User $user, PharmacyDrug $pharmacyDrug): bool
     {
-        return $user->can('restore pharmacy drug');
+        return $user->id === $pharmacyDrug->pharmacy->user->auth_id;
     }
 
     /**
@@ -61,6 +69,6 @@ class PharmacyDrugPolicy
      */
     public function forceDelete(User $user, PharmacyDrug $pharmacyDrug): bool
     {
-        return $user->can('force delete pharmacy drug');
+        return $user->id === $pharmacyDrug->pharmacy->user->auth_id;
     }
 }

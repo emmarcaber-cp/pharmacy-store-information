@@ -13,7 +13,7 @@ class SchedulePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view any schedule');
+        return $user->is_employee || $user->is_pharmacy;
     }
 
     /**
@@ -21,7 +21,7 @@ class SchedulePolicy
      */
     public function view(User $user, Schedule $schedule): bool
     {
-        return $user->can('view schedule');
+        return $user->is_employee || $user->is_pharmacy;
     }
 
     /**
@@ -29,7 +29,7 @@ class SchedulePolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create schedule');
+        return $user->is_employee || $user->is_pharmacy;
     }
 
     /**
@@ -37,7 +37,11 @@ class SchedulePolicy
      */
     public function update(User $user, Schedule $schedule): bool
     {
-        return $user->can('update schedule');
+        $schedulePharmacyOwnerId = $schedule->pharmacy->user->auth_id;
+        $scheduleEmployeeOwnerId = $schedule->employee->user->auth_id;
+
+        return $user->id === $schedulePharmacyOwnerId ||
+            $user->id === $scheduleEmployeeOwnerId;
     }
 
     /**
@@ -45,7 +49,11 @@ class SchedulePolicy
      */
     public function delete(User $user, Schedule $schedule): bool
     {
-        return $user->can('delete schedule');
+        $schedulePharmacyOwnerId = $schedule->pharmacy->user->auth_id;
+        $scheduleEmployeeOwnerId = $schedule->employee->user->auth_id;
+
+        return $user->id === $schedulePharmacyOwnerId ||
+            $user->id === $scheduleEmployeeOwnerId;
     }
 
     /**
@@ -53,7 +61,11 @@ class SchedulePolicy
      */
     public function restore(User $user, Schedule $schedule): bool
     {
-        return $user->can('restore schedule');
+        $schedulePharmacyOwnerId = $schedule->pharmacy->user->auth_id;
+        $scheduleEmployeeOwnerId = $schedule->employee->user->auth_id;
+
+        return $user->id === $schedulePharmacyOwnerId ||
+            $user->id === $scheduleEmployeeOwnerId;
     }
 
     /**
@@ -61,6 +73,10 @@ class SchedulePolicy
      */
     public function forceDelete(User $user, Schedule $schedule): bool
     {
-        return $user->can('force delete schedule');
+        $schedulePharmacyOwnerId = $schedule->pharmacy->user->auth_id;
+        $scheduleEmployeeOwnerId = $schedule->employee->user->auth_id;
+
+        return $user->id === $schedulePharmacyOwnerId ||
+            $user->id === $scheduleEmployeeOwnerId;
     }
 }

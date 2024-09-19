@@ -13,7 +13,10 @@ class PrescriptionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view any prescription');
+        return $user->is_patient ||
+            $user->is_doctor ||
+            $user->is_pharmacy ||
+            $user->is_employee;
     }
 
     /**
@@ -21,7 +24,10 @@ class PrescriptionPolicy
      */
     public function view(User $user, Prescription $prescription): bool
     {
-        return $user->can('view prescription');
+        return $user->is_patient ||
+            $user->is_doctor ||
+            $user->is_pharmacy ||
+            $user->is_employee;
     }
 
     /**
@@ -29,7 +35,7 @@ class PrescriptionPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create prescription');
+        return $user->is_doctor;
     }
 
     /**
@@ -37,7 +43,7 @@ class PrescriptionPolicy
      */
     public function update(User $user, Prescription $prescription): bool
     {
-        return $user->can('update prescription');
+        return $user->id === $prescription->doctor->user->auth_id;
     }
 
     /**
@@ -45,7 +51,7 @@ class PrescriptionPolicy
      */
     public function delete(User $user, Prescription $prescription): bool
     {
-        return $user->can('delete prescription');
+        return $user->id === $prescription->doctor->user->auth_id;
     }
 
     /**
@@ -53,7 +59,7 @@ class PrescriptionPolicy
      */
     public function restore(User $user, Prescription $prescription): bool
     {
-        return $user->can('restore prescription');
+        return $user->id === $prescription->doctor->user->auth_id;
     }
 
     /**
@@ -61,6 +67,6 @@ class PrescriptionPolicy
      */
     public function forceDelete(User $user, Prescription $prescription): bool
     {
-        return $user->can('force delete prescription');
+        return $user->id === $prescription->doctor->user->auth_id;
     }
 }

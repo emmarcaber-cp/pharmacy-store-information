@@ -13,7 +13,7 @@ class ContractPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view any contract');
+        return $user->is_drug_manufacturer || $user->is_pharmacy;
     }
 
     /**
@@ -21,7 +21,11 @@ class ContractPolicy
      */
     public function view(User $user, Contract $contract): bool
     {
-        return $user->can('view contract');
+        $contractPharmacyOwnerId = $contract->pharmacy->user->auth_id;
+        $contractDrugManufacturerOwnerId = $contract->pharmacy->user->auth_id;
+
+        return $user->id === $contractPharmacyOwnerId ||
+            $user->id === $contractDrugManufacturerOwnerId;
     }
 
     /**
@@ -29,7 +33,7 @@ class ContractPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create contract');
+        return $user->is_drug_manufacturer || $user->is_pharmacy;
     }
 
     /**
@@ -37,7 +41,11 @@ class ContractPolicy
      */
     public function update(User $user, Contract $contract): bool
     {
-        return $user->can('update contract');
+        $contractPharmacyOwnerId = $contract->pharmacy->user->auth_id;
+        $contractDrugManufacturerOwnerId = $contract->pharmacy->user->auth_id;
+
+        return $user->id === $contractPharmacyOwnerId ||
+            $user->id === $contractDrugManufacturerOwnerId;
     }
 
     /**
@@ -45,7 +53,11 @@ class ContractPolicy
      */
     public function delete(User $user, Contract $contract): bool
     {
-        return $user->can('delete contract');
+        $contractPharmacyOwnerId = $contract->pharmacy->user->auth_id;
+        $contractDrugManufacturerOwnerId = $contract->pharmacy->user->auth_id;
+
+        return $user->id === $contractPharmacyOwnerId ||
+            $user->id === $contractDrugManufacturerOwnerId;
     }
 
     /**
@@ -53,7 +65,11 @@ class ContractPolicy
      */
     public function restore(User $user, Contract $contract): bool
     {
-        return $user->can('restore contract');
+        $contractPharmacyOwnerId = $contract->pharmacy->user->auth_id;
+        $contractDrugManufacturerOwnerId = $contract->pharmacy->user->auth_id;
+
+        return $user->id === $contractPharmacyOwnerId ||
+            $user->id === $contractDrugManufacturerOwnerId;
     }
 
     /**
@@ -61,6 +77,10 @@ class ContractPolicy
      */
     public function forceDelete(User $user, Contract $contract): bool
     {
-        return $user->can('force delete contract');
+        $contractPharmacyOwnerId = $contract->pharmacy->user->auth_id;
+        $contractDrugManufacturerOwnerId = $contract->pharmacy->user->auth_id;
+
+        return $user->id === $contractPharmacyOwnerId ||
+            $user->id === $contractDrugManufacturerOwnerId;
     }
 }

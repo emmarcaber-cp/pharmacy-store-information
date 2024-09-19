@@ -13,7 +13,7 @@ class EmployeePolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view any employee');
+        return $user->is_employee || $user->is_pharmacy;
     }
 
     /**
@@ -21,7 +21,7 @@ class EmployeePolicy
      */
     public function view(User $user, Employee $employee): bool
     {
-        return $user->can('view employee');
+        return $user->is_employee || $user->is_pharmacy;
     }
 
     /**
@@ -29,7 +29,7 @@ class EmployeePolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create employee');
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class EmployeePolicy
      */
     public function update(User $user, Employee $employee): bool
     {
-        return $user->can('update employee');
+        return $user->id === $employee->user->auth_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class EmployeePolicy
      */
     public function delete(User $user, Employee $employee): bool
     {
-        return $user->can('delete employee');
+        return $user->id === $employee->user->auth_id;
     }
 
     /**
@@ -53,7 +53,7 @@ class EmployeePolicy
      */
     public function restore(User $user, Employee $employee): bool
     {
-        return $user->can('restore employee');
+        return $user->id === $employee->user->auth_id;
     }
 
     /**
@@ -61,6 +61,6 @@ class EmployeePolicy
      */
     public function forceDelete(User $user, Employee $employee): bool
     {
-        return $user->can('force delete employee');
+        return $user->id === $employee->user->auth_id;
     }
 }

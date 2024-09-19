@@ -13,7 +13,11 @@ class DrugPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view any drug');
+        return $user->is_patient ||
+            $user->is_doctor ||
+            $user->is_employee ||
+            $user->is_pharmacy ||
+            $user->is_drug_manufacturer;
     }
 
     /**
@@ -21,7 +25,11 @@ class DrugPolicy
      */
     public function view(User $user, Drug $drug): bool
     {
-        return $user->can('view drug');
+        return $user->is_patient ||
+            $user->is_doctor ||
+            $user->is_employee ||
+            $user->is_pharmacy ||
+            $user->is_drug_manufacturer;
     }
 
     /**
@@ -29,7 +37,7 @@ class DrugPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create drug');
+        return $user->is_drug_manufacturer;
     }
 
     /**
@@ -37,7 +45,7 @@ class DrugPolicy
      */
     public function update(User $user, Drug $drug): bool
     {
-        return $user->can('update drug');
+        return $user->id === $drug->drugManufacturer()->user()->auth_id;
     }
 
     /**
@@ -45,7 +53,7 @@ class DrugPolicy
      */
     public function delete(User $user, Drug $drug): bool
     {
-        return $user->can('delete drug');
+        return $user->id === $drug->drugManufacturer()->user()->auth_id;
     }
 
     /**
@@ -53,7 +61,7 @@ class DrugPolicy
      */
     public function restore(User $user, Drug $drug): bool
     {
-        return $user->can('restore drug');
+        return $user->id === $drug->drugManufacturer()->user()->auth_id;
     }
 
     /**
@@ -61,6 +69,6 @@ class DrugPolicy
      */
     public function forceDelete(User $user, Drug $drug): bool
     {
-        return $user->can('force delete drug');
+        return $user->id === $drug->drugManufacturer()->user()->auth_id;
     }
 }

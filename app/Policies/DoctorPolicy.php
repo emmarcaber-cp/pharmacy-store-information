@@ -13,7 +13,7 @@ class DoctorPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view any doctor');
+        return $user->is_doctor || $user->is_patient || $user->is_pharmacy;
     }
 
     /**
@@ -21,7 +21,7 @@ class DoctorPolicy
      */
     public function view(User $user, Doctor $doctor): bool
     {
-        return $user->can('view doctor');
+        return $user->is_doctor || $user->is_patient || $user->is_pharmacy;
     }
 
     /**
@@ -29,7 +29,7 @@ class DoctorPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create doctor');
+        return true;
     }
 
     /**
@@ -37,7 +37,7 @@ class DoctorPolicy
      */
     public function update(User $user, Doctor $doctor): bool
     {
-        return $user->can('update doctor');
+        return $user->id === $doctor->user->auth_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class DoctorPolicy
      */
     public function delete(User $user, Doctor $doctor): bool
     {
-        return $user->can('delete doctor');
+        return $user->id === $doctor->user->auth_id;
     }
 
     /**
@@ -53,7 +53,7 @@ class DoctorPolicy
      */
     public function restore(User $user, Doctor $doctor): bool
     {
-        return $user->can('restore doctor');
+        return $user->id === $doctor->user->auth_id;
     }
 
     /**
@@ -61,6 +61,6 @@ class DoctorPolicy
      */
     public function forceDelete(User $user, Doctor $doctor): bool
     {
-        return $user->can('force delete doctor');
+        return $user->id === $doctor->user->auth_id;
     }
 }

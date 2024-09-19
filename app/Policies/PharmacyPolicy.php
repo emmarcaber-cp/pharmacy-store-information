@@ -13,7 +13,11 @@ class PharmacyPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view any pharmacy');
+        return $user->is_patient ||
+            $user->is_doctor ||
+            $user->is_drug_manufacturer ||
+            $user->is_pharmacy ||
+            $user->is_employee;
     }
 
     /**
@@ -21,7 +25,11 @@ class PharmacyPolicy
      */
     public function view(User $user, Pharmacy $pharmacy): bool
     {
-        return $user->can('view pharmacy');
+        return $user->is_patient ||
+            $user->is_doctor ||
+            $user->is_drug_manufacturer ||
+            $user->is_pharmacy ||
+            $user->is_employee;
     }
 
     /**
@@ -29,7 +37,7 @@ class PharmacyPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create pharmacy');
+        return true;
     }
 
     /**
@@ -37,7 +45,7 @@ class PharmacyPolicy
      */
     public function update(User $user, Pharmacy $pharmacy): bool
     {
-        return $user->can('update pharmacy');
+        return $user->id === $pharmacy->user->auth_id;
     }
 
     /**
@@ -45,7 +53,7 @@ class PharmacyPolicy
      */
     public function delete(User $user, Pharmacy $pharmacy): bool
     {
-        return $user->can('delete pharmacy');
+        return $user->id === $pharmacy->user->auth_id;
     }
 
     /**
@@ -53,7 +61,7 @@ class PharmacyPolicy
      */
     public function restore(User $user, Pharmacy $pharmacy): bool
     {
-        return $user->can('restore pharmacy');
+        return $user->id === $pharmacy->user->auth_id;
     }
 
     /**
@@ -61,6 +69,6 @@ class PharmacyPolicy
      */
     public function forceDelete(User $user, Pharmacy $pharmacy): bool
     {
-        return $user->can('force delete pharmacy');
+        return $user->id === $pharmacy->user->auth_id;
     }
 }
