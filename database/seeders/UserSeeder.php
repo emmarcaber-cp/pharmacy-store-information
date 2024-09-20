@@ -18,51 +18,52 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        $doctor = Doctor::factory()->create();
+        $patient = Patient::factory()->create();
+        $drugManufacturer = DrugManufacturer::factory()->create();
+        $employee = Employee::factory()->create();
+        $pharmacy = Pharmacy::factory()->create();
+
         $users = [
             [
-                // Patient User
                 'name' => 'Patient User',
                 'email' => 'patient_user@email.com',
                 'password' => bcrypt('pass123'),
-                'auth_id' => Patient::factory()->create()->id,
+                'auth_id' => $patient->id,
                 'auth_type' => Patient::class,
             ],
             [
-                // Doctor User
                 'name' => 'Doctor User',
                 'email' => 'doctor_user@email.com',
                 'password' => bcrypt('pass123'),
-                'auth_id' => Doctor::factory()->create()->id,
+                'auth_id' => $doctor->id,
                 'auth_type' => Doctor::class,
             ],
             [
-                // Drug Manufacturer User
                 'name' => 'Drug Manufacturer User',
                 'email' => 'drug_manufacturer_user@email.com',
                 'password' => bcrypt('pass123'),
-                'auth_id' => DrugManufacturer::factory()->create()->id,
+                'auth_id' => $drugManufacturer->id,
                 'auth_type' => DrugManufacturer::class,
             ],
             [
-                // Employee User
                 'name' => 'Employee User',
                 'email' => 'employee_user@email.com',
                 'password' => bcrypt('pass123'),
-                'auth_id' => Employee::factory()->create()->id,
+                'auth_id' => $employee->id,
                 'auth_type' => Employee::class,
             ],
             [
-                // Pharmacy User
                 'name' => 'Pharmacy User',
                 'email' => 'pharmacy_user@email.com',
                 'password' => bcrypt('pass123'),
-                'auth_id' => Pharmacy::factory()->create()->id,
+                'auth_id' => $pharmacy->id,
                 'auth_type' => Pharmacy::class,
-            ]
+            ],
         ];
 
         foreach ($users as $user) {
-            User::firstOrCreate($user);
+            User::firstOrCreate(['email' => $user['email']], $user);
         }
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use App\Models\Pharmacy;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,5 +23,21 @@ class PharmacyFactory extends Factory
             'address' => $this->faker->address(),
             'fax' => $this->faker->phoneNumber(),
         ];
+    }
+
+    /**
+     * Configure the model factory to create a User automatically after a pharmacy is created.
+     */
+    public function configure()
+    {
+        return $this->afterCreating(function (Pharmacy $pharmacy) {
+            User::factory()->create([
+                'name' => $pharmacy->name,
+                'auth_id' => $pharmacy->id,
+                'auth_type' => Pharmacy::class,
+                'email' => $this->faker->unique()->safeEmail(),
+                'password' => bcrypt('password'),
+            ]);
+        });
     }
 }
