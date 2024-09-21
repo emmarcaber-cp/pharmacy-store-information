@@ -30,7 +30,6 @@ class Doctor extends Resource
      * @var array
      */
     public static $search = [
-        'id',
         'name'
     ];
 
@@ -53,7 +52,6 @@ class Doctor extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            // If the Doctor has a User, display the email
             Text::make('User Email', function () {
                 return $this->user ? $this->user->email : 'No User';
             })->onlyOnDetail(),  // Only display on the detail page
