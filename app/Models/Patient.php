@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\AutoCreatesAuthFields;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Patient extends Model
 {
-    use HasFactory;
+    use HasFactory, AutoCreatesAuthFields;
 
     protected $fillable = [
         'doctor_id',
