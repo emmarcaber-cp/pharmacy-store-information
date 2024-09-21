@@ -29,7 +29,7 @@ class PatientPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->is_doctor || $user->is_patient;
     }
 
     /**

@@ -29,7 +29,7 @@ class DrugManufacturerPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->is_pharmacy || $user->is_drug_manufacturer;
     }
 
     /**
