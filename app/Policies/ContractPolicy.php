@@ -24,8 +24,8 @@ class ContractPolicy
         $contractPharmacyOwnerId = $contract->pharmacy->user->auth_id;
         $contractDrugManufacturerOwnerId = $contract->pharmacy->user->auth_id;
 
-        return $user->id === $contractPharmacyOwnerId ||
-            $user->id === $contractDrugManufacturerOwnerId;
+        return $user->auth_id === $contractPharmacyOwnerId ||
+            $user->auth_id === $contractDrugManufacturerOwnerId;
     }
 
     /**
@@ -44,8 +44,8 @@ class ContractPolicy
         $contractPharmacyOwnerId = $contract->pharmacy->user->auth_id;
         $contractDrugManufacturerOwnerId = $contract->pharmacy->user->auth_id;
 
-        return $user->id === $contractPharmacyOwnerId ||
-            $user->id === $contractDrugManufacturerOwnerId;
+        return $user->auth_id === $contractPharmacyOwnerId ||
+            $user->auth_id === $contractDrugManufacturerOwnerId;
     }
 
     /**
@@ -56,8 +56,8 @@ class ContractPolicy
         $contractPharmacyOwnerId = $contract->pharmacy->user->auth_id;
         $contractDrugManufacturerOwnerId = $contract->pharmacy->user->auth_id;
 
-        return $user->id === $contractPharmacyOwnerId ||
-            $user->id === $contractDrugManufacturerOwnerId;
+        return $user->auth_id === $contractPharmacyOwnerId ||
+            $user->auth_id === $contractDrugManufacturerOwnerId;
     }
 
     /**
@@ -68,8 +68,8 @@ class ContractPolicy
         $contractPharmacyOwnerId = $contract->pharmacy->user->auth_id;
         $contractDrugManufacturerOwnerId = $contract->pharmacy->user->auth_id;
 
-        return $user->id === $contractPharmacyOwnerId ||
-            $user->id === $contractDrugManufacturerOwnerId;
+        return $user->auth_id === $contractPharmacyOwnerId ||
+            $user->auth_id === $contractDrugManufacturerOwnerId;
     }
 
     /**
@@ -80,7 +80,7 @@ class ContractPolicy
         $contractPharmacyOwnerId = $contract->pharmacy->user->auth_id;
         $contractDrugManufacturerOwnerId = $contract->pharmacy->user->auth_id;
 
-        return $user->id === $contractPharmacyOwnerId ||
-            $user->id === $contractDrugManufacturerOwnerId;
+        return $user->auth_id === $contractPharmacyOwnerId ||
+            $user->auth_id === $contractDrugManufacturerOwnerId;
     }
 }

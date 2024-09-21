@@ -43,7 +43,7 @@ class PrescriptionPolicy
      */
     public function update(User $user, Prescription $prescription): bool
     {
-        return $user->id === $prescription->doctor->user->auth_id;
+        return $user->auth_id === $prescription->doctor->user->auth_id;
     }
 
     /**
@@ -51,7 +51,7 @@ class PrescriptionPolicy
      */
     public function delete(User $user, Prescription $prescription): bool
     {
-        return $user->id === $prescription->doctor->user->auth_id;
+        return $user->auth_id === $prescription->doctor->user->auth_id;
     }
 
     /**
@@ -59,7 +59,7 @@ class PrescriptionPolicy
      */
     public function restore(User $user, Prescription $prescription): bool
     {
-        return $user->id === $prescription->doctor->user->auth_id;
+        return $user->auth_id === $prescription->doctor->user->auth_id;
     }
 
     /**
@@ -67,6 +67,6 @@ class PrescriptionPolicy
      */
     public function forceDelete(User $user, Prescription $prescription): bool
     {
-        return $user->id === $prescription->doctor->user->auth_id;
+        return $user->auth_id === $prescription->doctor->user->auth_id;
     }
 }

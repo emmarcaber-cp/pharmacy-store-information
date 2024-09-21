@@ -45,7 +45,7 @@ class PharmacyPolicy
      */
     public function update(User $user, Pharmacy $pharmacy): bool
     {
-        return $user->is_pharmacy && $user->id === $pharmacy->user->auth_id;
+        return $user->is_pharmacy && $user->auth_id === $pharmacy->user->auth_id;
     }
 
     /**
@@ -53,7 +53,7 @@ class PharmacyPolicy
      */
     public function delete(User $user, Pharmacy $pharmacy): bool
     {
-        return $user->id === $pharmacy->user->auth_id;
+        return $user->auth_id === $pharmacy->user->auth_id;
     }
 
     /**
@@ -61,7 +61,7 @@ class PharmacyPolicy
      */
     public function restore(User $user, Pharmacy $pharmacy): bool
     {
-        return $user->id === $pharmacy->user->auth_id;
+        return $user->auth_id === $pharmacy->user->auth_id;
     }
 
     /**
@@ -69,6 +69,6 @@ class PharmacyPolicy
      */
     public function forceDelete(User $user, Pharmacy $pharmacy): bool
     {
-        return $user->id === $pharmacy->user->auth_id;
+        return $user->auth_id === $pharmacy->user->auth_id;
     }
 }

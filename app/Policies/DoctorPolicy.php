@@ -37,7 +37,7 @@ class DoctorPolicy
      */
     public function update(User $user, Doctor $doctor): bool
     {
-        return $user->is_doctor && $user->id === $doctor->user->auth_id;
+        return $user->is_doctor && $user->auth_id === $doctor->user->auth_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class DoctorPolicy
      */
     public function delete(User $user, Doctor $doctor): bool
     {
-        return $user->id === $doctor->user->auth_id;
+        return $user->is_doctor && $user->auth_id === $doctor->user->auth_id;
     }
 
     /**
@@ -53,7 +53,7 @@ class DoctorPolicy
      */
     public function restore(User $user, Doctor $doctor): bool
     {
-        return $user->id === $doctor->user->auth_id;
+        return $user->is_doctor && $user->auth_id === $doctor->user->auth_id;
     }
 
     /**
@@ -61,6 +61,6 @@ class DoctorPolicy
      */
     public function forceDelete(User $user, Doctor $doctor): bool
     {
-        return $user->id === $doctor->user->auth_id;
+        return $user->is_doctor && $user->auth_id === $doctor->user->auth_id;
     }
 }

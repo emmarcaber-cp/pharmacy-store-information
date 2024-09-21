@@ -37,7 +37,7 @@ class EmployeePolicy
      */
     public function update(User $user, Employee $employee): bool
     {
-        return $user->is_employee && $user->id === $employee->user->auth_id;
+        return $user->is_employee && $user->auth_id === $employee->user->auth_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class EmployeePolicy
      */
     public function delete(User $user, Employee $employee): bool
     {
-        return $user->id === $employee->user->auth_id;
+        return $user->auth_id === $employee->user->auth_id;
     }
 
     /**
@@ -53,7 +53,7 @@ class EmployeePolicy
      */
     public function restore(User $user, Employee $employee): bool
     {
-        return $user->id === $employee->user->auth_id;
+        return $user->auth_id === $employee->user->auth_id;
     }
 
     /**
@@ -61,6 +61,6 @@ class EmployeePolicy
      */
     public function forceDelete(User $user, Employee $employee): bool
     {
-        return $user->id === $employee->user->auth_id;
+        return $user->auth_id === $employee->user->auth_id;
     }
 }

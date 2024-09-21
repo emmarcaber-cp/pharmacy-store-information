@@ -40,8 +40,8 @@ class SchedulePolicy
         $schedulePharmacyOwnerId = $schedule->pharmacy->user->auth_id;
         $scheduleEmployeeOwnerId = $schedule->employee->user->auth_id;
 
-        return $user->id === $schedulePharmacyOwnerId ||
-            $user->id === $scheduleEmployeeOwnerId;
+        return $user->auth_id === $schedulePharmacyOwnerId ||
+            $user->auth_id === $scheduleEmployeeOwnerId;
     }
 
     /**
@@ -52,8 +52,8 @@ class SchedulePolicy
         $schedulePharmacyOwnerId = $schedule->pharmacy->user->auth_id;
         $scheduleEmployeeOwnerId = $schedule->employee->user->auth_id;
 
-        return $user->id === $schedulePharmacyOwnerId ||
-            $user->id === $scheduleEmployeeOwnerId;
+        return $user->auth_id === $schedulePharmacyOwnerId ||
+            $user->auth_id === $scheduleEmployeeOwnerId;
     }
 
     /**
@@ -64,8 +64,8 @@ class SchedulePolicy
         $schedulePharmacyOwnerId = $schedule->pharmacy->user->auth_id;
         $scheduleEmployeeOwnerId = $schedule->employee->user->auth_id;
 
-        return $user->id === $schedulePharmacyOwnerId ||
-            $user->id === $scheduleEmployeeOwnerId;
+        return $user->auth_id === $schedulePharmacyOwnerId ||
+            $user->auth_id === $scheduleEmployeeOwnerId;
     }
 
     /**
@@ -76,7 +76,7 @@ class SchedulePolicy
         $schedulePharmacyOwnerId = $schedule->pharmacy->user->auth_id;
         $scheduleEmployeeOwnerId = $schedule->employee->user->auth_id;
 
-        return $user->id === $schedulePharmacyOwnerId ||
-            $user->id === $scheduleEmployeeOwnerId;
+        return $user->auth_id === $schedulePharmacyOwnerId ||
+            $user->auth_id === $scheduleEmployeeOwnerId;
     }
 }

@@ -37,7 +37,7 @@ class PatientPolicy
      */
     public function update(User $user, Patient $patient): bool
     {
-        return $user->is_patient && $user->id === $patient->user->auth_id;
+        return $user->is_patient && $user->auth_id === $patient->user->auth_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class PatientPolicy
      */
     public function delete(User $user, Patient $patient): bool
     {
-        return $user->id === $patient->user->auth_id;
+        return $user->auth_id === $patient->user->auth_id;
     }
 
     /**
@@ -53,7 +53,7 @@ class PatientPolicy
      */
     public function restore(User $user, Patient $patient): bool
     {
-        return $user->id === $patient->user->auth_id;
+        return $user->auth_id === $patient->user->auth_id;
     }
 
     /**
@@ -61,6 +61,6 @@ class PatientPolicy
      */
     public function forceDelete(User $user, Patient $patient): bool
     {
-        return $user->id === $patient->user->auth_id;
+        return $user->auth_id === $patient->user->auth_id;
     }
 }
