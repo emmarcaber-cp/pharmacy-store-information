@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Traits;
+namespace App\Models\Traits;
 
 use App\Models\User;
 
@@ -18,7 +18,7 @@ trait AutoCreatesAuthFields
                 'email' => "{$model->name}@email.com",
                 'auth_id' => $model->id,
                 'auth_type' => get_class($model),
-                'password' => bcrypt('password123'),
+                'password' => bcrypt('pass123'),
             ]);
         });
     }
