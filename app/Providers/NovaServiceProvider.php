@@ -16,6 +16,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::withBreadcrumbs();
     }
 
     /**
@@ -26,9 +28,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function routes()
     {
         Nova::routes()
-                ->withAuthenticationRoutes(default: true)
-                ->withPasswordResetRoutes()
-                ->register();
+            ->withAuthenticationRoutes(default: true)
+            ->withPasswordResetRoutes()
+            ->register();
     }
 
     /**
