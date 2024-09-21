@@ -28,17 +28,17 @@ class UserSeeder extends Seeder
 
         foreach ($userTypes as $model => $userInformation) {
             $modelInstance = $model::factory()->create($userInformation);
-            $userName = $userInformation['name'];
+            // $userName = $userInformation['name'];
 
-            User::firstOrCreate(
-                ['email' => strtolower(str_replace(' ', '_', $userName)) . '@email.com'],
-                [
-                    'name' => $userName,
-                    'password' => bcrypt('pass123'),
-                    'auth_id' => $modelInstance->id,
-                    'auth_type' => $model,
-                ]
-            );
+            // User::firstOrCreate(
+            //     ['email' => strtolower(str_replace(' ', '_', $userName)) . '@email.com'],
+            //     [
+            //         'name' => $modelInstance->name,
+            //         'password' => bcrypt('pass123'),
+            //         'auth_id' => $modelInstance->id,
+            //         'auth_type' => $model,
+            //     ]
+            // );
         }
     }
 }

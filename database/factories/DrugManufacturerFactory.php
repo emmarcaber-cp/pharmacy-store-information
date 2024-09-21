@@ -23,20 +23,4 @@ class DrugManufacturerFactory extends Factory
             'address' => $this->faker->address(),
         ];
     }
-
-    /**
-     * onfigure the model factory to create a User automatically after a drug manufacturer is created.
-     */
-    public function configure()
-    {
-        return $this->afterCreating(function (DrugManufacturer $drugManufacturer) {
-            User::factory()->create([
-                'name' => $drugManufacturer->name,
-                'auth_id' => $drugManufacturer->id,
-                'auth_type' => DrugManufacturer::class,
-                'email' => $this->faker->unique()->safeEmail(),
-                'password' => bcrypt('password'),
-            ]);
-        });
-    }
 }

@@ -20,20 +20,4 @@ class PatientFactory extends Factory
             'contact_no' => $this->faker->phoneNumber,
         ];
     }
-
-    /**
-     * Configure the model factory to create a User automatically after a patient is created.
-     */
-    public function configure()
-    {
-        return $this->afterCreating(function (Patient $patient) {
-            User::factory()->create([
-                'name' => $patient->name,
-                'auth_id' => $patient->id,
-                'auth_type' => Patient::class,
-                'email' => $this->faker->unique()->safeEmail,
-                'password' => bcrypt('password'),
-            ]);
-        });
-    }
 }

@@ -24,20 +24,4 @@ class PharmacyFactory extends Factory
             'fax' => $this->faker->phoneNumber(),
         ];
     }
-
-    /**
-     * Configure the model factory to create a User automatically after a pharmacy is created.
-     */
-    public function configure()
-    {
-        return $this->afterCreating(function (Pharmacy $pharmacy) {
-            User::factory()->create([
-                'name' => $pharmacy->name,
-                'auth_id' => $pharmacy->id,
-                'auth_type' => Pharmacy::class,
-                'email' => $this->faker->unique()->safeEmail(),
-                'password' => bcrypt('password'),
-            ]);
-        });
-    }
 }

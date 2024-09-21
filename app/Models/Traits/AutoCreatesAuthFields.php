@@ -13,9 +13,9 @@ trait AutoCreatesAuthFields
     protected static function bootAutoCreatesAuthFields()
     {
         static::created(function ($model) {
-            User::create([
+            User::firstOrCreate([
                 'name' => $model->name,
-                'email' => "{$model->name}@email.com",
+                'email' => strtolower(str_replace(' ', '_', $model->name)) . '@email.com',
                 'auth_id' => $model->id,
                 'auth_type' => get_class($model),
                 'password' => bcrypt('pass123'),
