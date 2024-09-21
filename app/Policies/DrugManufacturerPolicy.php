@@ -45,7 +45,7 @@ class DrugManufacturerPolicy
      */
     public function delete(User $user, DrugManufacturer $drugManufacturer): bool
     {
-        return $user->auth_id === $drugManufacturer->user->auth_id;
+        return $user->is_drug_manufacturer && $user->auth_id === $drugManufacturer->user->auth_id;
     }
 
     /**
@@ -53,7 +53,7 @@ class DrugManufacturerPolicy
      */
     public function restore(User $user, DrugManufacturer $drugManufacturer): bool
     {
-        return $user->auth_id === $drugManufacturer->user->auth_id;
+        return $user->is_drug_manufacturer && $user->auth_id === $drugManufacturer->user->auth_id;
     }
 
     /**
@@ -61,6 +61,6 @@ class DrugManufacturerPolicy
      */
     public function forceDelete(User $user, DrugManufacturer $drugManufacturer): bool
     {
-        return $user->auth_id === $drugManufacturer->user->auth_id;
+        return $user->is_drug_manufacturer && $user->auth_id === $drugManufacturer->user->auth_id;
     }
 }

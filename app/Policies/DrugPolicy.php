@@ -45,7 +45,7 @@ class DrugPolicy
      */
     public function update(User $user, Drug $drug): bool
     {
-        return $user->auth_id === $drug->drugManufacturer->user->auth_id;
+        return $user->is_drug_manufacturer && $user->auth_id === $drug->drugManufacturer->user->auth_id;
     }
 
     /**
@@ -53,7 +53,7 @@ class DrugPolicy
      */
     public function delete(User $user, Drug $drug): bool
     {
-        return $user->auth_id === $drug->drugManufacturer->user->auth_id;
+        return $user->is_drug_manufacturer && $user->auth_id === $drug->drugManufacturer->user->auth_id;
     }
 
     /**
@@ -61,7 +61,7 @@ class DrugPolicy
      */
     public function restore(User $user, Drug $drug): bool
     {
-        return $user->auth_id === $drug->drugManufacturer->user->auth_id;
+        return $user->is_drug_manufacturer && $user->auth_id === $drug->drugManufacturer->user->auth_id;
     }
 
     /**
@@ -69,6 +69,6 @@ class DrugPolicy
      */
     public function forceDelete(User $user, Drug $drug): bool
     {
-        return $user->auth_id === $drug->drugManufacturer->user->auth_id;
+        return $user->is_drug_manufacturer && $user->auth_id === $drug->drugManufacturer->user->auth_id;
     }
 }
