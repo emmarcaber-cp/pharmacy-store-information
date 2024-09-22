@@ -19,26 +19,6 @@ class Pharmacy extends Model
         'fax',
     ];
 
-    public function employees(): HasMany
-    {
-        return $this->hasMany(Schedule::class);
-    }
-
-    public function pharmacyDrugs(): HasMany
-    {
-        return $this->hasMany(PharmacyDrug::class);
-    }
-
-    public function contracts(): HasMany
-    {
-        return $this->hasMany(Contract::class);
-    }
-
-    public function schedules(): HasMany
-    {
-        return $this->hasMany(Schedule::class);
-    }
-
     /**
      * The drugs that are available in the pharmacy.
      *
@@ -59,6 +39,26 @@ class Pharmacy extends Model
     {
         return $this->belongsToMany(DrugManufacturer::class, 'contracts')
             ->withTimestamps();
+    }
+
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Schedule::class);
+    }
+
+    public function pharmacyDrugs(): HasMany
+    {
+        return $this->hasMany(PharmacyDrug::class);
+    }
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
+    }
+
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(Schedule::class);
     }
 
     public function user(): MorphOne

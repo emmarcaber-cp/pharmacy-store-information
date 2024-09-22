@@ -19,6 +19,17 @@ class DrugManufacturer extends Model
     ];
 
     /**
+     * The pharmacies that the drug manufacturer has contracts with.
+     * 
+     * @return BelongsToMany
+     */
+    public function pharmacies(): BelongsToMany
+    {
+        return $this->belongsToMany(Pharmacy::class, 'contracts')
+            ->withTimestamps();
+    }
+
+    /**
      * Get the drugs for the drug manufacturer.
      * 
      * @return HasMany
@@ -31,17 +42,6 @@ class DrugManufacturer extends Model
     public function contracts(): HasMany
     {
         return $this->hasMany(Contract::class);
-    }
-
-    /**
-     * The pharmacies that the drug manufacturer has contracts with.
-     * 
-     * @return BelongsToMany
-     */
-    public function pharmacies(): BelongsToMany
-    {
-        return $this->belongsToMany(Pharmacy::class, 'contracts')
-            ->withTimestamps();
     }
 
     public function user(): MorphOne

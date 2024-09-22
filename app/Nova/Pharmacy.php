@@ -58,7 +58,7 @@ class Pharmacy extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            HasMany::make('Drugs', 'pharmacyDrugs', PharmacyDrug::class),
+            HasMany::make('Pharmacy Drugs', 'pharmacyDrugs', PharmacyDrug::class),
 
             HasMany::make('Contracts', 'contracts', Contract::class),
 

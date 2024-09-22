@@ -27,11 +27,6 @@ class Drug extends Model
         return $this->belongsTo(DrugManufacturer::class);
     }
 
-    public function pharmacyDrugs(): HasMany
-    {
-        return $this->hasMany(PharmacyDrug::class);
-    }
-
     /**
      * The patients that have been prescribed this drug.
      * 
@@ -55,9 +50,14 @@ class Drug extends Model
     /**
      * The pharmacies that sells this drugs.
      */
-    public function pharmacies()
+    public function pharmacies(): BelongsToMany
     {
         return $this->belongsToMany(Pharmacy::class)
             ->withTimestamps();
+    }
+
+    public function pharmacyDrugs(): HasMany
+    {
+        return $this->hasMany(PharmacyDrug::class);
     }
 }
