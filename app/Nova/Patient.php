@@ -7,7 +7,9 @@ use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Patient extends Resource
@@ -46,15 +48,15 @@ class Patient extends Resource
         return [
             ID::make()->sortable(),
 
+            Text::make('Name')
+                ->sortable()
+                ->rules('required', 'max:255'),
+
             BelongsTo::make('Doctor', 'doctor', Doctor::class)
                 ->showCreateRelationButton()
                 ->sortable()
                 ->searchable()
                 ->required(),
-
-            Text::make('Name')
-                ->sortable()
-                ->rules('required', 'max:255'),
 
             Select::make('Sex')
                 ->options(SexTypes::toArray())
@@ -68,6 +70,8 @@ class Patient extends Resource
             Text::make('Contact Number', 'contact_no')
                 ->sortable()
                 ->rules('required', 'max:255'),
+
+            HasMany::make('Prescriptions', 'prescriptions', Prescription::class),
         ];
     }
 

@@ -44,6 +44,11 @@ class Doctor extends Model
             ->withTimestamps();
     }
 
+    public function prescriptions(): HasMany
+    {
+        return $this->hasMany(Prescription::class);
+    }
+
     public function user(): MorphOne
     {
         return $this->morphOne(User::class, 'auth');

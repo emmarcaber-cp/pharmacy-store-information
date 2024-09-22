@@ -4,8 +4,9 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Doctor extends Resource
@@ -55,6 +56,10 @@ class Doctor extends Resource
             Text::make('User Email', function () {
                 return $this->user ? $this->user->email : 'No User';
             })->onlyOnDetail(),  // Only display on the detail page
+
+            HasMany::make('Patients', 'patients', Patient::class),
+
+            HasMany::make('Prescriptions', 'prescriptions', Prescription::class),
         ];
     }
 
