@@ -56,9 +56,11 @@ class Schedule extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Pharmacy', 'pharmacy', Pharmacy::class),
+            BelongsTo::make('Pharmacy', 'pharmacy', Pharmacy::class)
+                ->showCreateRelationButton(),
 
-            BelongsTo::make('Employee', 'employee', Employee::class),
+            BelongsTo::make('Employee', 'employee', Employee::class)
+                ->showCreateRelationButton(),
 
             DateTime::make('Shift Start')
                 ->sortable()

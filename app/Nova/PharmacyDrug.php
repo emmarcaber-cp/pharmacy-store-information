@@ -56,7 +56,8 @@ class PharmacyDrug extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Pharmacy', 'pharmacy', Pharmacy::class),
+            BelongsTo::make('Pharmacy', 'pharmacy', Pharmacy::class)
+                ->showCreateRelationButton(),
 
             BelongsTo::make('Drug', 'drug', Drug::class),
 

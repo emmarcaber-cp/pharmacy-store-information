@@ -58,9 +58,11 @@ class Prescription extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Doctor', 'doctor', Doctor::class),
+            BelongsTo::make('Doctor', 'doctor', Doctor::class)
+                ->showCreateRelationButton(),
 
-            BelongsTo::make('Patient', 'patient', Patient::class),
+            BelongsTo::make('Patient', 'patient', Patient::class)
+                ->showCreateRelationButton(),
 
             BelongsTo::make('Drug', 'drug', Drug::class),
 
