@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employee_id')->constrained();
             $table->foreignId('pharmacy_id')->constrained();
-            $table->datetime('shift_start');
-            $table->datetime('shift_end');
+            $table->dateTime('shift_start');
+            $table->dateTime('shift_end');
             $table->timestamps();
         });
     }

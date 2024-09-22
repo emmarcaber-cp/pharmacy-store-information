@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -50,6 +51,10 @@ class DrugManufacturer extends Resource
             Text::make('Address')
                 ->sortable()
                 ->rules('required', 'max:255'),
+
+            HasMany::make('Drugs', 'drugs', Drug::class),
+
+            HasMany::make('Contracts', 'contracts', Contract::class),
         ];
     }
 

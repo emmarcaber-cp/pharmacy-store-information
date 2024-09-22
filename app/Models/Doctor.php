@@ -33,6 +33,11 @@ class Doctor extends Model
         return $this->hasMany(Patient::class);
     }
 
+    public function prescriptions(): HasMany
+    {
+        return $this->hasMany(Prescription::class);
+    }
+
     /**
      * The drugs that the doctor has prescribed.
      *
@@ -42,11 +47,6 @@ class Doctor extends Model
     {
         return $this->belongsToMany(Drug::class, 'prescriptions')
             ->withTimestamps();
-    }
-
-    public function prescriptions(): HasMany
-    {
-        return $this->hasMany(Prescription::class);
     }
 
     public function user(): MorphOne

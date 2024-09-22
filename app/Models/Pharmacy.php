@@ -7,6 +7,7 @@ use App\Models\Traits\AutoCreatesAuthFields;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pharmacy extends Model
 {
@@ -17,6 +18,21 @@ class Pharmacy extends Model
         'address',
         'fax',
     ];
+
+    public function pharmacyDrugs(): HasMany
+    {
+        return $this->hasMany(PharmacyDrug::class);
+    }
+
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
+    }
+
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(Schedule::class);
+    }
 
     /**
      * The drugs that are available in the pharmacy.
@@ -48,6 +64,7 @@ class Pharmacy extends Model
     public function employees(): BelongsToMany
     {
         return $this->belongsToMany(Employee::class, 'schedules')
+            ->withPivot(['shift_start', 'shift_end'])
             ->withTimestamps();
     }
 

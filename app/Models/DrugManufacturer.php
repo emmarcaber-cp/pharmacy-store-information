@@ -28,6 +28,11 @@ class DrugManufacturer extends Model
         return $this->hasMany(Drug::class);
     }
 
+    public function contracts(): HasMany
+    {
+        return $this->hasMany(Contract::class);
+    }
+
     /**
      * The pharmacies that the drug manufacturer has contracts with.
      * 

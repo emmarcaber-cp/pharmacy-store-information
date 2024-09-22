@@ -5,6 +5,9 @@ namespace App\Nova;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Pharmacy extends Resource
@@ -54,6 +57,22 @@ class Pharmacy extends Resource
             Text::make('Fax')
                 ->sortable()
                 ->rules('required', 'max:255'),
+
+            HasMany::make('Drugs', 'pharmacyDrugs', PharmacyDrug::class),
+
+            HasMany::make('Contracts', 'contracts', Contract::class),
+
+            BelongsToMany::make('Employees', 'employees', Employee::class)
+                ->fields(function ($request, $relatedModel) {
+                    return [
+                        DateTime::make('Shift Start')
+                            ->rules('required')
+                            ->format('YYYY-MM-DD HH:mm:ss'),
+                        DateTime::make('Shift End')
+                            ->rules('required')
+                            ->format('YYYY-MM-DD HH:mm:ss'),
+                    ];
+                }),
         ];
     }
 

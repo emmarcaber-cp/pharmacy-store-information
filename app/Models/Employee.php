@@ -7,6 +7,7 @@ use App\Models\Traits\AutoCreatesAuthFields;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Employee extends Model
 {
@@ -15,6 +16,11 @@ class Employee extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function schedules(): HasMany
+    {
+        return $this->hasMany(Schedule::class);
+    }
 
     /**
      * The pharmacies that the employee is assigned to.

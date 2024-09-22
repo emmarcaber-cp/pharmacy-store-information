@@ -2,10 +2,13 @@
 
 namespace App\Nova;
 
+use App\Nova\PharmacyDrug;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\HasManyThrough;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Drug extends Resource
@@ -44,12 +47,13 @@ class Drug extends Resource
         return [
             ID::make()->sortable(),
 
-            BelongsTo::make('Drug Manufacturer', 'drugManufacturer', DrugManufacturer::class)
-                ->showCreateRelationButton(),
+            BelongsTo::make('Drug Manufacturer', 'drugManufacturer', DrugManufacturer::class),
 
             Text::make('Trade Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
+
+            HasMany::make('Pharmacy', 'pharmacyDrugs', PharmacyDrug::class),
         ];
     }
 
