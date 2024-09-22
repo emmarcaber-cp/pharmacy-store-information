@@ -62,17 +62,9 @@ class Pharmacy extends Resource
 
             HasMany::make('Contracts', 'contracts', Contract::class),
 
-            BelongsToMany::make('Employees', 'employees', Employee::class)
-                ->fields(function ($request, $relatedModel) {
-                    return [
-                        DateTime::make('Shift Start')
-                            ->rules('required')
-                            ->format('YYYY-MM-DD HH:mm:ss'),
-                        DateTime::make('Shift End')
-                            ->rules('required')
-                            ->format('YYYY-MM-DD HH:mm:ss'),
-                    ];
-                }),
+            HasMany::make('Employees', 'employees', Employee::class),
+
+            HasMany::make('Schedules', 'schedules', Schedule::class),
         ];
     }
 

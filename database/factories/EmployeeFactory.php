@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use App\Models\Employee;
+use App\Models\Pharmacy;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,6 +20,7 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
+            'pharmacy_id' => Pharmacy::factory()->create()->id,
             'name' => $this->faker->name(),
         ];
     }

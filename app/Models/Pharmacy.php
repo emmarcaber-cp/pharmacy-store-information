@@ -19,6 +19,11 @@ class Pharmacy extends Model
         'fax',
     ];
 
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Schedule::class);
+    }
+
     public function pharmacyDrugs(): HasMany
     {
         return $this->hasMany(PharmacyDrug::class);
@@ -53,18 +58,6 @@ class Pharmacy extends Model
     public function drugManufacturers(): BelongsToMany
     {
         return $this->belongsToMany(DrugManufacturer::class, 'contracts')
-            ->withTimestamps();
-    }
-
-    /**
-     * The employees that are assigned to the pharmacy.
-     * 
-     * @return BelongsToMany
-     */
-    public function employees(): BelongsToMany
-    {
-        return $this->belongsToMany(Employee::class, 'schedules')
-            ->withPivot(['shift_start', 'shift_end'])
             ->withTimestamps();
     }
 

@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\BelongsTo;
 
 class Employee extends Resource
 {
@@ -49,6 +50,8 @@ class Employee extends Resource
             Text::make('Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
+
+            BelongsTo::make('Pharmacy', 'pharmacy', Pharmacy::class),
 
             HasMany::make('Schedules', 'schedules', Schedule::class),
         ];
