@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Nova\Drug;
+use App\Nova\User;
 use App\Nova\Doctor;
 use App\Nova\Patient;
 use App\Nova\Contract;
@@ -11,9 +12,9 @@ use App\Nova\Pharmacy;
 use App\Nova\Schedule;
 use Laravel\Nova\Nova;
 use App\Nova\PharmacyDrug;
+use App\Nova\Prescription;
 use Illuminate\Http\Request;
 use App\Nova\DrugManufacturer;
-use App\Nova\Prescription;
 use Laravel\Nova\Menu\MenuItem;
 use Laravel\Nova\Dashboards\Main;
 use Laravel\Nova\Menu\MenuSection;
@@ -35,27 +36,27 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
         Nova::mainMenu(function (Request $request) {
             return [
-                MenuSection::dashboard(Main::class)->icon('chart-bar'),
+                MenuSection::dashboard(Main::class)->icon('view-grid'),
 
                 MenuSection::make('Pharmacies Management', [
                     MenuItem::resource(Pharmacy::class),
                     MenuItem::resource(Employee::class),
                     MenuItem::resource(Schedule::class),
-                    MenuItem::resource(PharmacyDrug::class),
-                    MenuItem::resource(Contract::class),
                 ])->icon('office-building')->collapsable(),
 
                 MenuSection::make('Drugs Management', [
                     MenuItem::resource(DrugManufacturer::class),
                     MenuItem::resource(Drug::class),
-                    MenuItem::resource(Contract::class),
                 ])->icon('beaker')->collapsable(),
 
                 MenuSection::make('Patients Management', [
                     MenuItem::resource(Patient::class),
                     MenuItem::resource(Doctor::class),
-                    MenuItem::resource(Prescription::class),
                 ])->icon('user-group')->collapsable(),
+
+                MenuSection::make('Support', [
+                    MenuItem::resource(User::class),
+                ])->icon('cog'),
             ];
         });
     }
