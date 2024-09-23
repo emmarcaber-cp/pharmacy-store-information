@@ -52,7 +52,7 @@ class Drug extends Model
      */
     public function pharmacies(): BelongsToMany
     {
-        return $this->belongsToMany(Pharmacy::class)
+        return $this->belongsToMany(Pharmacy::class, 'pharmacy_drugs')
             ->withTimestamps();
     }
 

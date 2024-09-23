@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasManyThrough;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -53,7 +54,7 @@ class Drug extends Resource
                 ->sortable()
                 ->rules('required', 'max:255'),
 
-            HasMany::make('Pharmacy', 'pharmacyDrugs', PharmacyDrug::class),
+            BelongsToMany::make('Pharmacy', 'pharmacies', Pharmacy::class),
         ];
     }
 
