@@ -16,6 +16,7 @@ class Employee extends Model
 
     protected $fillable = [
         'name',
+        'pharmacy_id',
     ];
 
     public function pharmacy(): BelongsTo
