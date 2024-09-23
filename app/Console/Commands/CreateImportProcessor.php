@@ -63,7 +63,7 @@ class CreateImportProcessor extends Command
     protected function checkFileExists(string $path, string $model): bool
     {
         if ($this->files->exists($path)) {
-            $this->error("\n ERROR  {$model}ImportProcessor already exists at {$path}\n");
+            $this->error("ERROR  Import Processor already exists.");
             return true;
         }
         return false;
@@ -120,7 +120,6 @@ class {$model}ImportProcessor extends ImportProcessor
         return 100;
     }
 }
-    
 EOT;
     }
 }

@@ -63,7 +63,7 @@ class CreateImportAction extends Command
     protected function checkFileExists(string $path, string $model): bool
     {
         if ($this->files->exists($path)) {
-            $this->error("\n ERROR  {$model}ImportAction already exists at {$path}\n");
+            $this->error("ERROR  Import Action already exists.");
             return true;
         }
         return false;
