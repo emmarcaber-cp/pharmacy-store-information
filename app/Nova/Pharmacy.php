@@ -28,6 +28,8 @@ class Pharmacy extends Resource
      */
     public static $title = 'name';
 
+    public static $with = ['pharmacyDrugs', 'contracts', 'employees', 'schedules'];
+
     /**
      * The columns that should be searched.
      *

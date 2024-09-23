@@ -18,11 +18,16 @@ class Schedule extends Resource
     public static $model = \App\Models\Schedule::class;
 
     /**
-     * The single value that should be used to represent the resource when being displayed.
+     * Override the title method to concatenate pharmacy and drug manufacturer names.
      *
-     * @var string
+     * @return string
      */
-    public static $title = 'id';
+    public function title()
+    {
+        return "{$this->pharmacy->name} - {$this->employee->name}";
+    }
+
+    public static $with = ['pharmacy', 'employee'];
 
     /**
      * The columns that should be searched.
@@ -34,16 +39,6 @@ class Schedule extends Resource
         'pharmacy.name',
         'employee.name',
     ];
-
-    /**
-     * Override the title method to concatenate pharmacy and drug manufacturer names.
-     *
-     * @return string
-     */
-    public function title()
-    {
-        return "{$this->pharmacy->name} - {$this->employee->name}";
-    }
 
     /**
      * Get the fields displayed by the resource.

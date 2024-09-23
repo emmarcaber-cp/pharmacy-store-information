@@ -26,6 +26,8 @@ class DrugManufacturer extends Resource
      */
     public static $title = 'name';
 
+    public static $with = ['drugs', 'contracts'];
+
     /**
      * The columns that should be searched.
      *

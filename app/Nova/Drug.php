@@ -11,6 +11,8 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasManyThrough;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Exports\DrugExport\DrugExportAction;
+use App\Nova\Imports\DrugImport\DrugImportAction;
 
 class Drug extends Resource
 {
@@ -99,6 +101,9 @@ class Drug extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new DrugImportAction(),
+            new DrugExportAction(),
+        ];
     }
 }

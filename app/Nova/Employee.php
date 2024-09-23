@@ -29,6 +29,8 @@ class Employee extends Resource
      */
     public static $title = 'name';
 
+    public static $with = ['pharmacy', 'schedules'];
+
     /**
      * The columns that should be searched.
      *

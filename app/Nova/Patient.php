@@ -30,6 +30,8 @@ class Patient extends Resource
      */
     public static $title = 'name';
 
+    public static $with = ['doctor', 'prescriptions'];
+
     /**
      * The columns that should be searched.
      *

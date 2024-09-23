@@ -24,6 +24,8 @@ class PharmacyDrug extends Resource
      */
     public static $title = 'id';
 
+    public static $with = ['pharmacy', 'drug'];
+
     /**
      * The columns that should be searched.
      *

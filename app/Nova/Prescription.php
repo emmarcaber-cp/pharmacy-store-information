@@ -19,11 +19,16 @@ class Prescription extends Resource
     public static $model = \App\Models\Prescription::class;
 
     /**
-     * The single value that should be used to represent the resource when being displayed.
+     * Override the title method to concatenate doctor, patient and drug names.
      *
-     * @var string
+     * @return string
      */
-    public static $title = 'id';
+    public function title()
+    {
+        return "{$this->doctor->name} - {$this->patient->name} - {$this->drug->trade_name}";
+    }
+
+    public static $with = ['doctor', 'patient', 'drug'];
 
     /**
      * The columns that should be searched.
@@ -36,16 +41,6 @@ class Prescription extends Resource
         'patient.name',
         'drug.trade_name',
     ];
-
-    /**
-     * Override the title method to concatenate doctor, patient and drug names.
-     *
-     * @return string
-     */
-    public function title()
-    {
-        return "{$this->doctor->name} - {$this->patient->name} - {$this->drug->trade_name}";
-    }
 
     /**
      * Get the fields displayed by the resource.

@@ -2,11 +2,13 @@
 
 namespace App\Nova;
 
-use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
+use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Exports\ContractExport\ContractExportAction;
+use App\Nova\Imports\ContractImport\ContractImportAction;
 
 class Contract extends Resource
 {
@@ -18,11 +20,14 @@ class Contract extends Resource
     public static $model = \App\Models\Contract::class;
 
     /**
-     * The single value that should be used to represent the resource when being displayed.
+     * Override the title method to concatenate pharmacy and drug manufacturer names.
      *
-     * @var string
+     * @return string
      */
-    public static $title = 'id';
+    public function title()
+    {
+        return "{$this->pharmacy->name} - {$this->drugManufacturer->name}";
+    }
 
     /**
      * The columns that should be searched.
@@ -34,15 +39,7 @@ class Contract extends Resource
         'drugManufacturer.name',
     ];
 
-    /**
-     * Override the title method to concatenate pharmacy and drug manufacturer names.
-     *
-     * @return string
-     */
-    public function title()
-    {
-        return "{$this->pharmacy->name} - {$this->drugManufacturer->name}";
-    }
+    public static $with = ['pharmacy', 'drugManufacturer'];
 
     /**
      * Get the fields displayed by the resource.
@@ -106,6 +103,9 @@ class Contract extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new ContractImportAction(),
+            new ContractExportAction(),
+        ];
     }
 }
