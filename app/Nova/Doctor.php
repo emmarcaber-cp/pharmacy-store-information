@@ -2,13 +2,14 @@
 
 namespace App\Nova;
 
-use App\Nova\Imports\DoctorImport\DoctorImportAction;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Exports\DoctorExport\DoctorExportAction;
+use App\Nova\Imports\DoctorImport\DoctorImportAction;
 
 class Doctor extends Resource
 {
@@ -107,6 +108,7 @@ class Doctor extends Resource
     {
         return [
             new DoctorImportAction(),
+            new DoctorExportAction(),
         ];
     }
 }

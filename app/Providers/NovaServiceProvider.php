@@ -61,6 +61,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
                 MenuSection::make('Data Sync', [
                     MenuItem::make('Imports', '/resources/imports'),
+                    MenuItem::make('Exports', '/resources/exports'),
                 ])->icon('cloud-download'),
             ];
         });

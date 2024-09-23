@@ -2,12 +2,13 @@
 
 namespace App\Nova;
 
-use App\Nova\Imports\DrugManufacturerImport\DrugManufacturerImportAction;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Exports\DrugManufacturerExport\DrugManufacturerExportAction;
+use App\Nova\Imports\DrugManufacturerImport\DrugManufacturerImportAction;
 
 class DrugManufacturer extends Resource
 {
@@ -102,6 +103,7 @@ class DrugManufacturer extends Resource
     {
         return [
             new DrugManufacturerImportAction(),
+            new DrugManufacturerExportAction(),
         ];
     }
 }

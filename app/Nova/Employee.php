@@ -2,15 +2,16 @@
 
 namespace App\Nova;
 
-use App\Nova\Imports\EmployeeImport\EmployeeImportAction;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Fields\BelongsTo;
+use App\Nova\Exports\EmployeeExport\EmployeeExportAction;
+use App\Nova\Imports\EmployeeImport\EmployeeImportAction;
 
 class Employee extends Resource
 {
@@ -101,6 +102,7 @@ class Employee extends Resource
     {
         return [
             new EmployeeImportAction(),
+            new EmployeeExportAction(),
         ];
     }
 }

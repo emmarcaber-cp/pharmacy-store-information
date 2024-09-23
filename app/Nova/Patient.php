@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Exports\PatientExport\PatientExportAction;
 use App\Nova\Imports\PatientImport\PatientImportAction;
 use App\Types\SexTypes;
 use Laravel\Nova\Fields\ID;
@@ -119,6 +120,7 @@ class Patient extends Resource
     {
         return [
             new PatientImportAction(),
+            new PatientExportAction(),
         ];
     }
 }
