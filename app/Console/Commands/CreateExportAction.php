@@ -5,14 +5,14 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
-class CreateImportAction extends Command
+class CreateExportAction extends Command
 {
     // The name and signature of the command
-    // Provide the nova resource where you will create an import action
-    protected $signature = 'nova-data-sync:import-action {model}';
+    // Provide the nova resource where you will create an export action
+    protected $signature = 'nova-data-sync:export-action {model}';
 
     // The command description
-    protected $description = 'Create a new Import Action class';
+    protected $description = 'Create a new Export Action class';
 
     // File system instance to handle file creation
     protected Filesystem $files;
@@ -38,7 +38,7 @@ class CreateImportAction extends Command
         $this->createDirectoryIfNotExists($directoryPath);
         $this->createProcessorFile($filePath, $model);
 
-        $this->info("\n INFO  {$model}ImportAction created successfully at {$filePath}\n");
+        $this->info("\n INFO  {$model}ExportAction created successfully at {$filePath}\n");
     }
 
     // Get the model argument
@@ -50,20 +50,20 @@ class CreateImportAction extends Command
     // Get the directory path where the processor file will be created
     protected function getDirectoryPath(string $model): string
     {
-        return app_path("Nova/Imports/{$model}Import");
+        return app_path("Nova/Exports/{$model}Export");
     }
 
     // Get the full file path of the processor class
     protected function getFilePath(string $model): string
     {
-        return app_path("Nova/Imports/{$model}Import/{$model}ImportAction.php");
+        return app_path("Nova/Exports/{$model}Export/{$model}ExportAction.php");
     }
 
     // Check if the file already exists, and output an error message if it does
     protected function checkFileExists(string $path, string $model): bool
     {
         if ($this->files->exists($path)) {
-            $this->error("ERROR  Import Action already exists.");
+            $this->error("ERROR  Export Action already exists.");
             return true;
         }
         return false;
@@ -88,17 +88,21 @@ class CreateImportAction extends Command
         return <<<EOT
 <?php
 
-namespace App\Nova\Imports\\{$model}Import;
+namespace App\Nova\Exports\\{$model}Export;
 
-use Coreproc\NovaDataSync\Import\Nova\Actions\ImportNovaAction;
-use App\Nova\Imports\\{$model}Import\\{$model}ImportProcessor;
+use Laravel\Nova\Fields\ActionFields;
+use Illuminate\Support\Collection;
+use App\Nova\Exports\\{$model}Export\\{$model}ExportProcessor;
+use Coreproc\NovaDataSync\Export\Jobs\ExportProcessor;
+use Coreproc\NovaDataSync\Export\Nova\Action\ExportNovaAction;
 
-class {$model}ImportAction extends ImportNovaAction
+class {$model}ExportAction extends ExportNovaAction
 {
-   // A sample processor will be shown below
-    public string \$processor = {$model}ImportProcessor::class;
+   protected function processor(ActionFields \$fields, Collection \$models): ExportProcessor
+    {
+        return new {$model}ExportProcessor();
+    }
 }
-    
 EOT;
     }
 }
