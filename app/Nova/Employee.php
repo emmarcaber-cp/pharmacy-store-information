@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Imports\EmployeeImport\EmployeeImportAction;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -98,6 +99,8 @@ class Employee extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new EmployeeImportAction(),
+        ];
     }
 }

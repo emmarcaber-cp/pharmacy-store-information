@@ -15,6 +15,8 @@ use App\Nova\PharmacyDrug;
 use App\Nova\Prescription;
 use Illuminate\Http\Request;
 use App\Nova\DrugManufacturer;
+use Coreproc\NovaDataSync\Import\Nova\Import;
+use Coreproc\NovaDataSync\NovaDataSync;
 use Laravel\Nova\Menu\MenuItem;
 use Laravel\Nova\Dashboards\Main;
 use Laravel\Nova\Menu\MenuSection;
@@ -41,7 +43,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 MenuSection::make('Pharmacies Management', [
                     MenuItem::resource(Pharmacy::class),
                     MenuItem::resource(Employee::class),
-                    MenuItem::resource(Schedule::class),
                 ])->icon('office-building')->collapsable(),
 
                 MenuSection::make('Drugs Management', [
@@ -57,6 +58,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 MenuSection::make('Support', [
                     MenuItem::resource(User::class),
                 ])->icon('cog'),
+
+                MenuSection::make('Data Sync', [
+                    MenuItem::make('Imports', '/resources/imports'),
+                ])->icon('cloud-download'),
             ];
         });
     }
@@ -109,7 +114,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function tools()
     {
-        return [];
+        return [
+            new NovaDataSync(),
+        ];
     }
 
     /**

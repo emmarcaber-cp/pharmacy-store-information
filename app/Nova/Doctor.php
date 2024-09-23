@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Imports\DoctorImport\DoctorImportAction;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -104,6 +105,8 @@ class Doctor extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new DoctorImportAction(),
+        ];
     }
 }

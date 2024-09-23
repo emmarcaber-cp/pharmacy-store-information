@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Imports\PatientImport\PatientImportAction;
 use App\Types\SexTypes;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -116,6 +117,8 @@ class Patient extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new PatientImportAction(),
+        ];
     }
 }

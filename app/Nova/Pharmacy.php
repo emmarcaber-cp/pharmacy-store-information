@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Imports\PharmacyImport\PharmacyImportAction;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -109,6 +110,8 @@ class Pharmacy extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new PharmacyImportAction(),
+        ];
     }
 }
