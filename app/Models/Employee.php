@@ -15,8 +15,8 @@ class Employee extends Model
     use HasFactory, AutoCreatesAuthFields;
 
     protected $fillable = [
-        'name',
         'pharmacy_id',
+        'name',
     ];
 
     public function pharmacy(): BelongsTo

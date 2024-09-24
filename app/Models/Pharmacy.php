@@ -43,7 +43,7 @@ class Pharmacy extends Model
 
     public function employees(): HasMany
     {
-        return $this->hasMany(Schedule::class);
+        return $this->hasMany(Employee::class);
     }
 
     public function pharmacyDrugs(): HasMany
