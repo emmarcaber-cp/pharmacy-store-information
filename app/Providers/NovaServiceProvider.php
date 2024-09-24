@@ -43,21 +43,18 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
                 MenuSection::make('Pharmacies Management', [
                     MenuItem::resource(Pharmacy::class),
                     MenuItem::resource(Employee::class),
-                ])->icon('office-building')->collapsable(),
-
-                MenuSection::make('Drugs Management', [
                     MenuItem::resource(DrugManufacturer::class),
                     MenuItem::resource(Drug::class),
-                ])->icon('beaker')->collapsable(),
+                ])->icon('office-building')->collapsable(),
 
                 MenuSection::make('Patients Management', [
                     MenuItem::resource(Patient::class),
                     MenuItem::resource(Doctor::class),
                 ])->icon('user-group')->collapsable(),
 
-                MenuSection::make('Support', [
-                    MenuItem::resource(User::class),
-                ])->icon('cog'),
+                // MenuSection::make('Support', [
+                //     MenuItem::resource(User::class),
+                // ])->icon('cog'),
 
                 MenuSection::make('Data Sync', [
                     MenuItem::make('Imports', '/resources/imports'),
