@@ -18,7 +18,7 @@ class EmployeeImportProcessor extends ImportProcessor
     {
         return [
             'name' => ['required', 'max:255'],
-            'pharmacy_name' => ['required', 'max:255'],
+            'pharmacy_name' => ['required', 'max:255', 'exists:pharmacies,name'],
         ];
     }
 
@@ -26,19 +26,12 @@ class EmployeeImportProcessor extends ImportProcessor
     {
         Log::info('processing row ' . $rowIndex);
 
-        // Use firstOrCreate directly without the factory
-        $pharmacy = Pharmacy::firstOrCreate(
-            ['name' => $row['pharmacy_name']],
-            ['name' => $row['pharmacy_name']]
-        );
+        $pharmacy = Pharmacy::where('name', $row['pharmacy_name'])->first();
 
-        // Create or update the Employee
         Employee::firstOrCreate(
             ['name' => $row['name']],
             ['pharmacy_id' => $pharmacy->id]
         );
-
-        Log::info('Processed employee: ' . $row['name'] . ' with pharmacy: ' . $pharmacy->name);
     }
 
     public static function chunkSize(): int

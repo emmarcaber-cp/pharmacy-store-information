@@ -18,7 +18,7 @@ class PatientImportProcessor extends ImportProcessor
     {
         return [
             'name' => ['required', 'max:255'],
-            'doctor_name' => ['required', 'max:255'],
+            'doctor_name' => ['required', 'max:255', 'exists:doctors,name'],
             'sex' => ['required', 'in:male,female'],
             'address' => ['required', 'max:255'],
             'contact_no' => ['required', 'max:255'],
@@ -29,10 +29,7 @@ class PatientImportProcessor extends ImportProcessor
     {
         Log::info('processing row ' . $rowIndex);
 
-        $doctor = Doctor::firstOrCreate(
-            ['name' => $row['doctor_name']],
-            ['name' => $row['doctor_name']]
-        );
+        $doctor = Doctor::where('name', $row['doctor_name'])->first();
 
         Patient::firstOrCreate(
             [

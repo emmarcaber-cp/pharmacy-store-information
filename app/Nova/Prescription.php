@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Exports\PrescriptionExport\PrescriptionExportAction;
+use App\Nova\Imports\PrescriptionImport\PrescriptionImportAction;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Number;
@@ -108,6 +110,9 @@ class Prescription extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new PrescriptionImportAction(),
+            new PrescriptionExportAction(),
+        ];
     }
 }

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Imports\PharmacyDrugImport\PharmacyDrugImportAction;
+use App\Nova\Exports\PharmacyDrugExport\PharmacyDrugExportAction;
 
 class PharmacyDrug extends Resource
 {
@@ -18,11 +20,14 @@ class PharmacyDrug extends Resource
     public static $model = \App\Models\PharmacyDrug::class;
 
     /**
-     * The single value that should be used to represent the resource when being displayed.
+     * Override the title method to concatenate pharmacy and drug names.
      *
-     * @var string
+     * @return string
      */
-    public static $title = 'id';
+    public function title()
+    {
+        return "{$this->pharmacy->name} - {$this->drug->trade_name}";
+    }
 
     public static $with = ['pharmacy', 'drug'];
 
@@ -36,16 +41,6 @@ class PharmacyDrug extends Resource
         'pharmacy.name',
         'drug.trade_name',
     ];
-
-    /**
-     * Override the title method to concatenate pharmacy and drug names.
-     *
-     * @return string
-     */
-    public function title()
-    {
-        return "{$this->pharmacy->name} - {$this->drug->trade_name}";
-    }
 
     /**
      * Get the fields displayed by the resource.
@@ -108,6 +103,9 @@ class PharmacyDrug extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new PharmacyDrugImportAction(),
+            new PharmacyDrugExportAction(),
+        ];
     }
 }

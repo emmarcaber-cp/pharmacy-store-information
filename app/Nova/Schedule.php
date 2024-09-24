@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Exports\ScheduleExport\ScheduleExportAction;
+use App\Nova\Imports\ScheduleImport\ScheduleImportAction;
 
 class Schedule extends Resource
 {
@@ -108,6 +110,9 @@ class Schedule extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new ScheduleImportAction(),
+            new ScheduleExportAction(),
+        ];
     }
 }
