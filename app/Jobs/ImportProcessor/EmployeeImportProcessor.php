@@ -4,7 +4,7 @@ namespace App\Jobs\ImportProcessor;
 
 use App\Models\Employee;
 use App\Models\Pharmacy;
-use Illuminate\Support\Facades\Log;
+use App\Exceptions\SaveRecordException;
 use Coreproc\NovaDataSync\Import\Jobs\ImportProcessor;
 
 class EmployeeImportProcessor extends ImportProcessor
@@ -24,11 +24,19 @@ class EmployeeImportProcessor extends ImportProcessor
 
     protected function process(array $row, int $rowIndex): void
     {
-        $pharmacy = Pharmacy::where('name', $row['pharmacy_name'])->first();
+        $pharmacy = Pharmacy::where(
+            'name',
+            trim($row['pharmacy_name'])
+        )->first();
 
-        Employee::firstOrCreate(
-            ['name' => $row['name']],
-            ['pharmacy_id' => $pharmacy->id]
+        $employee = Employee::firstOrNew([
+            'name' => $row['name'],
+            'pharmacy_id' => $pharmacy->id
+        ]);
+
+        throw_if(
+            $employee->save() === false,
+            new SaveRecordException($employee)
         );
     }
 }

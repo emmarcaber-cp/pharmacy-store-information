@@ -5,7 +5,7 @@ namespace App\Jobs\ImportProcessor;
 use App\Models\Employee;
 use App\Models\Pharmacy;
 use App\Models\Schedule;
-use Illuminate\Support\Facades\Log;
+use App\Exceptions\SaveRecordException;
 use Coreproc\NovaDataSync\Import\Jobs\ImportProcessor;
 
 class ScheduleImportProcessor extends ImportProcessor
@@ -30,16 +30,16 @@ class ScheduleImportProcessor extends ImportProcessor
         $pharmacy = Pharmacy::where('name', $row['pharmacy_name'])->first();
         $employee = Employee::where('name', $row['employee_name'])->first();
 
-        Schedule::firstOrCreate([
-            'pharmacy_id' => $pharmacy->id,
-            'employee_id' => $employee->id,
-            'shift_start' => $row['shift_start'],
-            'shift_end' => $row['shift_end'],
-        ], [
+        $schedule = Schedule::firstOrNew([
             'pharmacy_id' => $pharmacy->id,
             'employee_id' => $employee->id,
             'shift_start' => $row['shift_start'],
             'shift_end' => $row['shift_end'],
         ]);
+
+        throw_if(
+            $schedule->save() === false,
+            new SaveRecordException($schedule)
+        );
     }
 }

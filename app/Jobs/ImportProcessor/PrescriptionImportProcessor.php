@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Prescription;
 use Illuminate\Support\Facades\Log;
+use App\Exceptions\SaveRecordException;
 use Coreproc\NovaDataSync\Import\Jobs\ImportProcessor;
 
 class PrescriptionImportProcessor extends ImportProcessor
@@ -29,22 +30,32 @@ class PrescriptionImportProcessor extends ImportProcessor
 
     protected function process(array $row, int $rowIndex): void
     {
-        $doctor = Doctor::where('name', $row['doctor_name'])->first();
-        $patient = Patient::where('name', $row['patient_name'])->first();
-        $drug = Drug::where('trade_name', $row['drug_trade_name'])->first();
+        $doctor = Doctor::where(
+            'name',
+            $row['doctor_name']
+        )->first();
 
-        Prescription::firstOrCreate([
+        $patient = Patient::where(
+            'name',
+            $row['patient_name']
+        )->first();
+
+        $drug = Drug::where(
+            'trade_name',
+            $row['drug_trade_name']
+        )->first();
+
+        $prescription = Prescription::firstOrNew([
             'doctor_id' => $doctor->id,
             'patient_id' => $patient->id,
             'drug_id' => $drug->id,
-            'quantity' => $row['quantity'],
-            'prescribed_at' => $row['prescribed_at'],
-        ], [
-            'doctor_id' => $doctor->id,
-            'patient_id' => $patient->id,
-            'drug_id' => $drug->id,
-            'quantity' => $row['quantity'],
-            'prescribed_at' => $row['prescribed_at'],
+            'quantity' => trim($row['quantity']),
+            'prescribed_at' => trim($row['prescribed_at']),
         ]);
+
+        throw_if(
+            $prescription->save() === false,
+            new SaveRecordException($doctor)
+        );
     }
 }

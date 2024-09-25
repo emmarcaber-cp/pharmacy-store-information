@@ -5,7 +5,7 @@ namespace App\Jobs\ImportProcessor;
 use App\Models\Contract;
 use App\Models\Pharmacy;
 use App\Models\DrugManufacturer;
-use Illuminate\Support\Facades\Log;
+use App\Exceptions\SaveRecordException;
 use Coreproc\NovaDataSync\Import\Jobs\ImportProcessor;
 
 class ContractImportProcessor extends ImportProcessor
@@ -27,19 +27,26 @@ class ContractImportProcessor extends ImportProcessor
 
     protected function process(array $row, int $rowIndex): void
     {
-        $pharmacy = Pharmacy::where('name', $row['pharmacy_name'])->first();
-        $drugManufacturer = DrugManufacturer::where('name', $row['drug_manufacturer_name'])->first();
+        $pharmacy = Pharmacy::where(
+            'name',
+            $row['pharmacy_name']
+        )->first();
 
-        Contract::firstOrCreate([
-            'pharmacy_id' => $pharmacy->id,
-            'drug_manufacturer_id' => $drugManufacturer->id,
-            'start_date' => $row['start_date'],
-            'end_date' => $row['end_date'],
-        ], [
+        $drugManufacturer = DrugManufacturer::where(
+            'name',
+            $row['drug_manufacturer_name']
+        )->first();
+
+        $contract = Contract::firstOrNew([
             'pharmacy_id' => $pharmacy->id,
             'drug_manufacturer_id' => $drugManufacturer->id,
             'start_date' => $row['start_date'],
             'end_date' => $row['end_date'],
         ]);
+
+        throw_if(
+            $contract->save() === false,
+            new SaveRecordException($contract)
+        );
     }
 }

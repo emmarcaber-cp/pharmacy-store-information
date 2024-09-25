@@ -2,8 +2,9 @@
 
 namespace App\Jobs\ImportProcessor;
 
+use Laravel\Nova\Nova;
 use App\Models\DrugManufacturer;
-use Illuminate\Support\Facades\Log;
+use App\Exceptions\SaveRecordException;
 use Coreproc\NovaDataSync\Import\Jobs\ImportProcessor;
 
 class DrugManufacturerImportProcessor extends ImportProcessor
@@ -23,9 +24,15 @@ class DrugManufacturerImportProcessor extends ImportProcessor
 
     protected function process(array $row, int $rowIndex): void
     {
-        DrugManufacturer::firstOrCreate([
+        $drugManufacturer = DrugManufacturer::firstOrNew([
             'name' => $row['name'],
-            'address' => $row['address'],
         ]);
+
+        $drugManufacturer->address = trim($row['address']);
+
+        throw_if(
+            $drugManufacturer->save() === false,
+            new SaveRecordException($drugManufacturer)
+        );
     }
 }

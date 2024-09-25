@@ -3,8 +3,10 @@
 namespace App\Jobs\ImportProcessor;
 
 use App\Models\Doctor;
+use Laravel\Nova\Nova;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Log;
+use App\Exceptions\SaveRecordException;
 use Coreproc\NovaDataSync\Import\Jobs\ImportProcessor;
 
 class PatientImportProcessor extends ImportProcessor
@@ -27,18 +29,23 @@ class PatientImportProcessor extends ImportProcessor
 
     protected function process(array $row, int $rowIndex): void
     {
-        $doctor = Doctor::where('name', $row['doctor_name'])->first();
+        $doctor = Doctor::where(
+            'name',
+            trim($row['doctor_name']),
+        )->firstOrFail();
 
-        Patient::firstOrCreate(
-            [
-                'doctor_id' => $doctor->id,
-                'name' => $row['name'],
-            ],
-            [
-                'sex' => $row['sex'],
-                'address' => $row['address'],
-                'contact_no' => $row['contact_no'],
-            ]
+        $patient = Patient::firstOrNew([
+            'name' => trim($row['name']),
+            'doctor_id' => $doctor->id,
+        ]);
+
+        $patient->sex = trim($row['sex']);
+        $patient->address = trim($row['address']);
+        $patient->contact_no = trim($row['contact_no']);
+
+        throw_if(
+            $patient->save() === false,
+            new SaveRecordException($patient)
         );
     }
 }
