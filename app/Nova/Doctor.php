@@ -8,8 +8,8 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use App\Nova\Exports\DoctorExport\DoctorExportAction;
-use App\Nova\Imports\DoctorImport\DoctorImportAction;
+use App\Nova\Actions\Exports\DoctorExportAction;
+use App\Nova\Actions\Imports\DoctorImportAction;
 
 class Doctor extends Resource
 {

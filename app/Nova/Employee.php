@@ -8,8 +8,8 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use App\Nova\Exports\EmployeeExport\EmployeeExportAction;
-use App\Nova\Imports\EmployeeImport\EmployeeImportAction;
+use App\Nova\Actions\Exports\EmployeeExportAction;
+use App\Nova\Actions\Imports\EmployeeImportAction;
 
 class Employee extends Resource
 {

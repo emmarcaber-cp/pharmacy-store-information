@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use App\Nova\Exports\ContractExport\ContractExportAction;
-use App\Nova\Imports\ContractImport\ContractImportAction;
+use App\Nova\Actions\Exports\ContractExportAction;
+use App\Nova\Actions\Imports\ContractImportAction;
 
 class Contract extends Resource
 {

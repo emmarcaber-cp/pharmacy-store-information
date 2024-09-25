@@ -2,8 +2,6 @@
 
 namespace App\Nova;
 
-use App\Nova\Exports\PatientExport\PatientExportAction;
-use App\Nova\Imports\PatientImport\PatientImportAction;
 use App\Types\SexTypes;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
@@ -13,6 +11,8 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Actions\Exports\PatientExportAction;
+use App\Nova\Actions\Imports\PatientImportAction;
 
 class Patient extends Resource
 {

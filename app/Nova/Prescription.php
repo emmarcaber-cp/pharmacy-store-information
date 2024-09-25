@@ -2,14 +2,14 @@
 
 namespace App\Nova;
 
-use App\Nova\Exports\PrescriptionExport\PrescriptionExportAction;
-use App\Nova\Imports\PrescriptionImport\PrescriptionImportAction;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Actions\Exports\PrescriptionExportAction;
+use App\Nova\Actions\Imports\PrescriptionImportAction;
 
 class Prescription extends Resource
 {

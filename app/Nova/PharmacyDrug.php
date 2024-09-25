@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use App\Nova\Imports\PharmacyDrugImport\PharmacyDrugImportAction;
-use App\Nova\Exports\PharmacyDrugExport\PharmacyDrugExportAction;
+use App\Nova\Actions\Exports\PharmacyDrugExportAction;
+use App\Nova\Actions\Imports\PharmacyDrugImportAction;
 
 class PharmacyDrug extends Resource
 {

@@ -2,8 +2,6 @@
 
 namespace App\Nova;
 
-use App\Nova\Exports\PharmacyExport\PharmacyExportAction;
-use App\Nova\Imports\PharmacyImport\PharmacyImportAction;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -11,6 +9,8 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use App\Nova\Actions\Exports\PharmacyExportAction;
+use App\Nova\Actions\Imports\PharmacyImportAction;
 
 class Pharmacy extends Resource
 {

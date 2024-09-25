@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use App\Nova\Exports\DrugManufacturerExport\DrugManufacturerExportAction;
-use App\Nova\Imports\DrugManufacturerImport\DrugManufacturerImportAction;
+use App\Nova\Actions\Exports\DrugManufacturerExportAction;
+use App\Nova\Actions\Imports\DrugManufacturerImportAction;
 
 class DrugManufacturer extends Resource
 {
