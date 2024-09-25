@@ -28,9 +28,4 @@ class DrugManufacturerImportProcessor extends ImportProcessor
             'address' => $row['address'],
         ]);
     }
-
-    public static function chunkSize(): int
-    {
-        return 100;
-    }
 }

@@ -42,9 +42,4 @@ class ScheduleImportProcessor extends ImportProcessor
             'shift_end' => $row['shift_end'],
         ]);
     }
-
-    public static function chunkSize(): int
-    {
-        return 100;
-    }
 }

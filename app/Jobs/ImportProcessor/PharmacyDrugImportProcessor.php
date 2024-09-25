@@ -39,9 +39,4 @@ class PharmacyDrugImportProcessor extends ImportProcessor
             'price' => $row['price'],
         ]);
     }
-
-    public static function chunkSize(): int
-    {
-        return 100;
-    }
 }

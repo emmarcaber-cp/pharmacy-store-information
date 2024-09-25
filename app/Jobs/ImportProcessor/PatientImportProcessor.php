@@ -41,9 +41,4 @@ class PatientImportProcessor extends ImportProcessor
             ]
         );
     }
-
-    public static function chunkSize(): int
-    {
-        return 100;
-    }
 }

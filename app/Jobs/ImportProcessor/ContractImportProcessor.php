@@ -42,9 +42,4 @@ class ContractImportProcessor extends ImportProcessor
             'end_date' => $row['end_date'],
         ]);
     }
-
-    public static function chunkSize(): int
-    {
-        return 100;
-    }
 }

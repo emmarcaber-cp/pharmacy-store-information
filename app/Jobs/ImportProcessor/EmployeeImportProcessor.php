@@ -31,9 +31,4 @@ class EmployeeImportProcessor extends ImportProcessor
             ['pharmacy_id' => $pharmacy->id]
         );
     }
-
-    public static function chunkSize(): int
-    {
-        return 100;
-    }
 }
