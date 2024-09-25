@@ -2,14 +2,25 @@
 
 namespace App\Jobs\ExportProcessor;
 
-use App\Models\Employee;
-use Coreproc\NovaDataSync\Export\Jobs\ExportProcessor;
 use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 
-class EmployeeExportProcessor extends ExportProcessor
+class EmployeeExportProcessor extends BaseExportProcessor
 {
     public function query(): Builder
     {
-        return Employee::query();
+        $query = DB::query()->from('employees')
+            ->join('pharmacies', 'employees.pharmacy_id', '=', 'pharmacies.id')
+            ->select(
+                'employees.id',
+                'pharmacies.name as pharmacy',
+                'employees.name as employee',
+            );
+
+        if ($this->filters['pharmacy_id'] ?? false) {
+            $query->where('pharmacy_id', $this->filters['pharmacy_id']);
+        }
+
+        return $query;
     }
 }
