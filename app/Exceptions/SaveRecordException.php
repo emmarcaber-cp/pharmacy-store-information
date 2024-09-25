@@ -6,9 +6,16 @@ use RuntimeException;
 
 class SaveRecordException extends RuntimeException
 {
-    public function __construct(protected mixed $model)
+    /**
+     * SaveRecordException constructor.
+     *
+     * @param string $message
+     * @param mixed $model
+     * @param \Throwable|null $previous
+     */
+    public function __construct(protected mixed $model = null)
     {
-        parent::__construct('Failed to save record');
+        parent::__construct("SaveRecordException: Failed to Save Record." . json_encode($this->context()));
     }
 
     public function render(): void
