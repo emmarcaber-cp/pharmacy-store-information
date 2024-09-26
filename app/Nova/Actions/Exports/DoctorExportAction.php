@@ -2,7 +2,6 @@
 
 namespace App\Nova\Actions\Exports;
 
-use App\Models\Doctor;
 use Laravel\Nova\Fields\Select;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -10,15 +9,12 @@ use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Jobs\ExportProcessor\DoctorExportProcessor;
 use Coreproc\NovaDataSync\Export\Jobs\ExportProcessor;
-use Coreproc\NovaDataSync\Export\Nova\Action\ExportNovaAction;
 
-class DoctorExportAction extends ExportNovaAction
+class DoctorExportAction extends BaseExportAction
 {
     protected function processor(ActionFields $fields, Collection $models): ExportProcessor
     {
-        return new DoctorExportProcessor([
-            'specialty' => $fields->specialty,
-        ]);
+        return new DoctorExportProcessor($fields->toArray());
     }
 
     public function fields(NovaRequest $request): array

@@ -9,19 +9,13 @@ use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Jobs\ExportProcessor\ScheduleExportProcessor;
 use Coreproc\NovaDataSync\Export\Jobs\ExportProcessor;
-use Coreproc\NovaDataSync\Export\Nova\Action\ExportNovaAction;
 use Laravel\Nova\Fields\Date;
 
-class ScheduleExportAction extends ExportNovaAction
+class ScheduleExportAction extends BaseExportAction
 {
     protected function processor(ActionFields $fields, Collection $models): ExportProcessor
     {
-        return new ScheduleExportProcessor([
-            'employee_id' => $fields->employee_id,
-            'pharmacy_id' => $fields->pharmacy_id,
-            'shift_start_from' => $fields->shift_start_from,
-            'shift_start_until' => $fields->shift_start_until,
-        ]);
+        return new ScheduleExportProcessor($fields->toArray());
     }
 
     public function fields(NovaRequest $request): array
@@ -53,9 +47,19 @@ class ScheduleExportAction extends ExportNovaAction
                 )
                 ->displayUsingLabels(),
 
-            Date::make('Shift Start - FROM', 'shift_start_from'),
+            Date::make('From Shift Start', 'shift_start_from')
+                ->rules(
+                    'required',
+                    'date',
+                    'before_or_equal:shift_start_to'
+                ),
 
-            Date::make('Shift Start - UNTIL', 'shift_start_until'),
+            Date::make('To Shift Start', 'shift_start_to')
+                ->rules(
+                    'required',
+                    'date',
+                    'after_or_equal:shift_start_from'
+                ),
         ];
     }
 }

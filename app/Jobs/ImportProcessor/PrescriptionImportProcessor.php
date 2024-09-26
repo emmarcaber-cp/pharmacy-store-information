@@ -2,6 +2,7 @@
 
 namespace App\Jobs\ImportProcessor;
 
+use Carbon\Carbon;
 use App\Models\Drug;
 use App\Models\Doctor;
 use App\Models\Patient;
@@ -14,17 +15,40 @@ class PrescriptionImportProcessor extends ImportProcessor
 {
     public static function expectedHeaders(): array
     {
-        return ['doctor_name', 'patient_name', 'drug_trade_name', 'quantity', 'prescribed_at'];
+        return [
+            'doctor_name',
+            'patient_name',
+            'drug_trade_name',
+            'quantity',
+            'prescribed_at'
+        ];
     }
 
     protected function rules(array $row, int $rowIndex): array
     {
         return [
-            'doctor_name' => ['required', 'max:255', 'exists:doctors,name'],
-            'patient_name' => ['required', 'max:255', 'exists:patients,name'],
-            'drug_trade_name' => ['required', 'max:255', 'exists:drugs,trade_name'],
-            'quantity' => ['required', 'numeric'],
-            'prescribed_at' => ['required', 'date_format:Y-m-d H:i:s'],
+            'doctor_name' => [
+                'required',
+                'max:255',
+                'exists:doctors,name'
+            ],
+            'patient_name' => [
+                'required',
+                'max:255',
+                'exists:patients,name'
+            ],
+            'drug_trade_name' => [
+                'required',
+                'max:255',
+                'exists:drugs,trade_name'
+            ],
+            'quantity' => [
+                'required',
+                'numeric'
+            ],
+            'prescribed_at' => [
+                'required',
+            ],
         ];
     }
 
@@ -50,7 +74,7 @@ class PrescriptionImportProcessor extends ImportProcessor
             'patient_id' => $patient->id,
             'drug_id' => $drug->id,
             'quantity' => trim($row['quantity']),
-            'prescribed_at' => trim($row['prescribed_at']),
+            'prescribed_at' => Carbon::parse($row['prescribed_at']),
         ]);
 
         throw_if(

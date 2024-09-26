@@ -20,19 +20,20 @@ class ContractExportProcessor extends BaseExportProcessor
                 'end_date'
             );
 
-        if ($this->filters['pharmacy_id'] ?? false) {
+        if (isset($this->filters['pharmacy_id'])) {
             $query->where('pharmacy_id', $this->filters['pharmacy_id']);
         }
 
-        if ($this->filters['drug_manufacturer_id'] ?? false) {
+        if (isset($this->filters['drug_manufacturer_id'])) {
             $query->where('drug_manufacturer_id', $this->filters['drug_manufacturer_id']);
         }
 
-        if ($this->filters['start_date_from'] ?? false && $this->filters['start_date_until'] ?? false) {
-            $query->whereBetween('start_date', [
-                $this->filters['start_date_from'],
-                $this->filters['start_date_until'],
-            ]);
+        if (isset($this->filters['start_date_from'])) {
+            $query->where('start_date', '>=', $this->filters['start_date_from']);
+        }
+
+        if (isset($this->filters['start_date_to'])) {
+            $query->where('start_date', '<=', $this->filters['start_date_to']);
         }
 
         return $query;

@@ -13,14 +13,24 @@ class DrugImportProcessor extends ImportProcessor
 {
     public static function expectedHeaders(): array
     {
-        return ['drug_manufacturer_name', 'trade_name'];
+        return [
+            'drug_manufacturer_name',
+            'trade_name'
+        ];
     }
 
     protected function rules(array $row, int $rowIndex): array
     {
         return [
-            'drug_manufacturer_name' => ['required', 'max:255', 'exists:drug_manufacturers,name'],
-            'trade_name' => ['required', 'max:255'],
+            'drug_manufacturer_name' => [
+                'required',
+                'max:255',
+                'exists:drug_manufacturers,name'
+            ],
+            'trade_name' => [
+                'required',
+                'max:255'
+            ],
         ];
     }
 

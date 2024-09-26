@@ -3,22 +3,18 @@
 namespace App\Nova\Actions\Exports;
 
 use Laravel\Nova\Fields\Select;
-use App\Models\DrugManufacturer;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Jobs\ExportProcessor\DrugExportProcessor;
 use Coreproc\NovaDataSync\Export\Jobs\ExportProcessor;
-use Coreproc\NovaDataSync\Export\Nova\Action\ExportNovaAction;
 
-class DrugExportAction extends ExportNovaAction
+class DrugExportAction extends BaseExportAction
 {
     protected function processor(ActionFields $fields, Collection $models): ExportProcessor
     {
-        return new DrugExportProcessor([
-            'drug_manufacturer_id' => $fields->drug_manufacturer_id,
-        ]);
+        return new DrugExportProcessor($fields->toArray());
     }
 
     public function fields(NovaRequest $request): array

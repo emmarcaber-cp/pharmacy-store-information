@@ -13,17 +13,39 @@ class PatientImportProcessor extends ImportProcessor
 {
     public static function expectedHeaders(): array
     {
-        return ['name', 'doctor_name', 'sex', 'address', 'contact_no'];
+        return [
+            'name',
+            'doctor_name',
+            'sex',
+            'address',
+            'contact_no'
+        ];
     }
 
     protected function rules(array $row, int $rowIndex): array
     {
         return [
-            'name' => ['required', 'max:255'],
-            'doctor_name' => ['required', 'max:255', 'exists:doctors,name'],
-            'sex' => ['required', 'in:male,female'],
-            'address' => ['required', 'max:255'],
-            'contact_no' => ['required', 'max:255'],
+            'name' => [
+                'required',
+                'max:255'
+            ],
+            'doctor_name' => [
+                'required',
+                'max:255',
+                'exists:doctors,name'
+            ],
+            'sex' => [
+                'required',
+                'in:male,female'
+            ],
+            'address' => [
+                'required',
+                'max:255'
+            ],
+            'contact_no' => [
+                'required',
+                'max:255'
+            ],
         ];
     }
 

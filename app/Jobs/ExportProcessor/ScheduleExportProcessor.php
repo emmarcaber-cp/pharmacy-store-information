@@ -20,19 +20,28 @@ class ScheduleExportProcessor extends BaseExportProcessor
                 'schedules.shift_end',
             );
 
-        if ($this->filters['employee_id'] ?? false) {
+        if (isset($this->filters['employee_id'])) {
             $query->where('employee_id', $this->filters['employee_id']);
         }
 
-        if ($this->filters['pharmacy_id'] ?? false) {
+        if (isset($this->filters['pharmacy_id'])) {
             $query->where('pharmacy_id', $this->filters['pharmacy_id']);
         }
 
-        if ($this->filters['shift_start_from'] ?? false && $this->filters['shift_start_until'] ?? false) {
-            $query->whereBetween('shift_start', [
-                $this->filters['shift_start_from'],
-                $this->filters['shift_start_until'],
-            ]);
+        if (isset($this->filters['shift_start_from'])) {
+            $query->where(
+                'shift_start',
+                ">=",
+                $this->filters['shift_start_from']
+            );
+        }
+
+        if (isset($this->filters['shift_start_to'])) {
+            $query->where(
+                'shift_start',
+                "<=",
+                $this->filters['shift_start_to']
+            );
         }
 
         return $query;

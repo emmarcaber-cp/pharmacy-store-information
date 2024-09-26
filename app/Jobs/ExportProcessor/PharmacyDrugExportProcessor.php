@@ -19,17 +19,20 @@ class PharmacyDrugExportProcessor extends BaseExportProcessor
                 'pharmacy_drugs.price'
             );
 
-        if ($this->filters['pharmacy_id'] ?? false) {
+        if (isset($this->filters['pharmacy_id'])) {
             $query->where('pharmacy_id', $this->filters['pharmacy_id']);
         }
 
-        if ($this->filters['drug_id'] ?? false) {
+        if (isset($this->filters['drug_id'])) {
             $query->where('drug_id', $this->filters['drug_id']);
         }
 
-        if ($this->filters['price_from'] ?? false && $this->filters['price_to'] ?? false) {
-            $query->where('price', '>=', $this->filters['price_from'])
-                ->where('price', '<=', $this->filters['price_to']);
+        if (isset($this->filters['price_from'])) {
+            $query->where('price', '>=', $this->filters['price_from']);
+        }
+
+        if (isset($this->filters['price_to'])) {
+            $query->where('price', '<=', $this->filters['price_to']);
         }
 
         return $query;

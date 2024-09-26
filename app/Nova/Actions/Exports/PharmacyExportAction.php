@@ -6,9 +6,8 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\ActionFields;
 use App\Jobs\ExportProcessor\PharmacyExportProcessor;
 use Coreproc\NovaDataSync\Export\Jobs\ExportProcessor;
-use Coreproc\NovaDataSync\Export\Nova\Action\ExportNovaAction;
 
-class PharmacyExportAction extends ExportNovaAction
+class PharmacyExportAction extends BaseExportAction
 {
     protected function processor(ActionFields $fields, Collection $models): ExportProcessor
     {

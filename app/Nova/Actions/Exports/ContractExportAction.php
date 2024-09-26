@@ -9,19 +9,13 @@ use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Jobs\ExportProcessor\ContractExportProcessor;
 use Coreproc\NovaDataSync\Export\Jobs\ExportProcessor;
-use Coreproc\NovaDataSync\Export\Nova\Action\ExportNovaAction;
 use Laravel\Nova\Fields\Date;
 
-class ContractExportAction extends ExportNovaAction
+class ContractExportAction extends BaseExportAction
 {
     protected function processor(ActionFields $fields, Collection $models): ExportProcessor
     {
-        return new ContractExportProcessor([
-            'pharmacy_id' => $fields->pharmacy_id,
-            'drug_manufacturer_id' => $fields->drug_manufacturer_id,
-            'start_date_from' => $fields->start_date_from,
-            'start_date_until' => $fields->start_date_until,
-        ]);
+        return new ContractExportProcessor($fields->toArray());
     }
 
     public function fields(NovaRequest $request): array
@@ -53,9 +47,19 @@ class ContractExportAction extends ExportNovaAction
                 )
                 ->displayUsingLabels(),
 
-            Date::make('Start Date - FROM', 'start_date_from'),
+            Date::make('From Start Date', 'start_date_from')
+                ->rules(
+                    'required',
+                    'date',
+                    'before_or_equal:start_date_to'
+                ),
 
-            Date::make('Start Date - UNTIL', 'start_date_until')
+            Date::make('To Start Date', 'start_date_to')
+                ->rules(
+                    'required',
+                    'date',
+                    'after_or_equal:start_date_from'
+                ),
         ];
     }
 }

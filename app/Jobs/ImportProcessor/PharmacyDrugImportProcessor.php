@@ -12,15 +12,30 @@ class PharmacyDrugImportProcessor extends ImportProcessor
 {
     public static function expectedHeaders(): array
     {
-        return ['pharmacy_name', 'drug_trade_name', 'price'];
+        return [
+            'pharmacy_name',
+            'drug_trade_name',
+            'price'
+        ];
     }
 
     protected function rules(array $row, int $rowIndex): array
     {
         return [
-            'pharmacy_name' => ['required', 'max:255', 'exists:pharmacies,name'],
-            'drug_trade_name' => ['required', 'max:255', 'exists:drugs,trade_name'],
-            'price' => ['required', 'decimal:2'],
+            'pharmacy_name' => [
+                'required',
+                'max:255',
+                'exists:pharmacies,name'
+            ],
+            'drug_trade_name' => [
+                'required',
+                'max:255',
+                'exists:drugs,trade_name'
+            ],
+            'price' => [
+                'required',
+                'decimal:2'
+            ],
         ];
     }
 

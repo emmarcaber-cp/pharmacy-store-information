@@ -22,28 +22,32 @@ class PrescriptionExportProcessor extends BaseExportProcessor
                 'prescriptions.prescribed_at',
             );
 
-        if ($this->filters['doctor_id'] ?? false) {
+        if (isset($this->filters['doctor_id'])) {
             $query->where('doctor_id', $this->filters['doctor_id']);
         }
 
-        if ($this->filters['patient_id'] ?? false) {
+        if (isset($this->filters['patient_id'])) {
             $query->where('patient_id', $this->filters['patient_id']);
         }
 
-        if ($this->filters['drug_id'] ?? false) {
+        if (isset($this->filters['drug_id'])) {
             $query->where('drug_id', $this->filters['drug_id']);
         }
 
-        if ($this->filters['quantity_from'] ?? false && $this->filters['quantity_to'] ?? false) {
-            $query->where('price', '>=', $this->filters['quantity_from'])
-                ->where('price', '<=', $this->filters['quantity_to']);
+        if (isset($this->filters['quantity_from'])) {
+            $query->where('quantity', '>=', $this->filters['quantity_from']);
         }
 
-        if ($this->filters['prescribed_at_from'] ?? false && $this->filters['prescribed_at_until'] ?? false) {
-            $query->whereBetween('prescribed_at', [
-                $this->filters['prescribed_at_from'],
-                $this->filters['prescribed_at_until'],
-            ]);
+        if (isset($this->filters['quantity_to'])) {
+            $query->where('quantity', '<=', $this->filters['quantity_to']);
+        }
+
+        if (isset($this->filters['prescribed_at_from'])) {
+            $query->where('prescribed_at', '>=', $this->filters['prescribed_at_from']);
+        }
+
+        if (isset($this->filters['prescribed_at_to'])) {
+            $query->where('prescribed_at', '<=', $this->filters['prescribed_at_to']);
         }
 
         return $query;

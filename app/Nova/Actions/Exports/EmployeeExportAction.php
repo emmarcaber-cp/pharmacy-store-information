@@ -9,15 +9,12 @@ use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use App\Jobs\ExportProcessor\EmployeeExportProcessor;
 use Coreproc\NovaDataSync\Export\Jobs\ExportProcessor;
-use Coreproc\NovaDataSync\Export\Nova\Action\ExportNovaAction;
 
-class EmployeeExportAction extends ExportNovaAction
+class EmployeeExportAction extends BaseExportAction
 {
     protected function processor(ActionFields $fields, Collection $models): ExportProcessor
     {
-        return new EmployeeExportProcessor([
-            'pharmacy_id' => $fields->pharmacy_id,
-        ]);
+        return new EmployeeExportProcessor($fields->toArray());
     }
 
     public function fields(NovaRequest $request): array

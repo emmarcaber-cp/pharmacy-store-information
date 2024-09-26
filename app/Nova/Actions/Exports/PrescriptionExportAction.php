@@ -5,27 +5,19 @@ namespace App\Nova\Actions\Exports;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\FormData;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Coreproc\NovaDataSync\Export\Jobs\ExportProcessor;
 use App\Jobs\ExportProcessor\PrescriptionExportProcessor;
-use Coreproc\NovaDataSync\Export\Nova\Action\ExportNovaAction;
 
-class PrescriptionExportAction extends ExportNovaAction
+class PrescriptionExportAction extends BaseExportAction
 {
     protected function processor(ActionFields $fields, Collection $models): ExportProcessor
     {
-        return new PrescriptionExportProcessor([
-            'doctor_id' => $fields->doctor_id,
-            'patient_id' => $fields->patient_id,
-            'drug_id' => $fields->drug_id,
-            'quantity_from' => $fields->quantity_from,
-            'quantity_to' => $fields->quantity_to,
-            'prescribed_at_from' => $fields->prescribed_at_from,
-            'prescribed_at_until' => $fields->prescribed_at_until,
-        ]);
+        return new PrescriptionExportProcessor($fields->toArray());
     }
 
     public function fields(NovaRequest $request): array
@@ -70,16 +62,35 @@ class PrescriptionExportAction extends ExportNovaAction
                 )
                 ->displayUsingLabels(),
 
-            Number::make('Quantity - FROM', 'quantity_from')
-                ->placeholder('MIN'),
+            Number::make('From Quantity', 'quantity_from')
+                ->placeholder('MIN')
+                ->rules(
+                    'required',
+                    'numeric',
+                    'lte:quantity_to'
+                ),
 
-            Number::make('Quantity - TO', 'quantity_to')
+            Number::make('To Quantity', 'quantity_to')
                 ->placeholder('MAX')
-                ->rules('required_with:quantity_from', 'gte:quantity_from'),
+                ->rules(
+                    'required',
+                    'numeric',
+                    'gte:quantity_from'
+                ),
 
-            Date::make('Prescribed at - FROM', 'prescribed_at_from'),
+            Date::make('From Prescribed at', 'prescribed_at_from')
+                ->rules(
+                    'required',
+                    'date',
+                    'before_or_equal:prescribed_at_to'
+                ),
 
-            Date::make('Prescribed at - UNTIL', 'prescribed_at_until')
+            Date::make('To Prescribed at', 'prescribed_at_to')
+                ->rules(
+                    'required',
+                    'date',
+                    'after_or_equal:prescribed_at_from'
+                ),
         ];
     }
 }

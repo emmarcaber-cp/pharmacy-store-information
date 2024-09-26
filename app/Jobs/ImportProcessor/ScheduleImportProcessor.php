@@ -12,16 +12,33 @@ class ScheduleImportProcessor extends ImportProcessor
 {
     public static function expectedHeaders(): array
     {
-        return ['pharmacy_name', 'employee_name', 'shift_start', 'shift_end'];
+        return [
+            'pharmacy_name',
+            'employee_name',
+            'shift_start',
+            'shift_end'
+        ];
     }
 
     protected function rules(array $row, int $rowIndex): array
     {
         return [
-            'pharmacy_name' => ['required', 'max:255', 'exists:pharmacies,name'],
-            'employee_name' => ['required', 'max:255', 'exists:employees,name'],
-            'shift_start' => ['required', 'date_format:Y-m-d H:i:s'],
-            'shift_end' => ['required', 'date_format:Y-m-d H:i:s'],
+            'pharmacy_name' => [
+                'required',
+                'max:255',
+                'exists:pharmacies,name'
+            ],
+            'employee_name' => [
+                'required',
+                'max:255',
+                'exists:employees,name'
+            ],
+            'shift_start' => [
+                'required',
+            ],
+            'shift_end' => [
+                'required',
+            ],
         ];
     }
 

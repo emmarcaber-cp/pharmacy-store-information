@@ -11,14 +11,24 @@ class EmployeeImportProcessor extends ImportProcessor
 {
     public static function expectedHeaders(): array
     {
-        return ['name', 'pharmacy_name'];
+        return [
+            'name',
+            'pharmacy_name'
+        ];
     }
 
     protected function rules(array $row, int $rowIndex): array
     {
         return [
-            'name' => ['required', 'max:255'],
-            'pharmacy_name' => ['required', 'max:255', 'exists:pharmacies,name'],
+            'name' => [
+                'required',
+                'max:255'
+            ],
+            'pharmacy_name' => [
+                'required',
+                'max:255',
+                'exists:pharmacies,name'
+            ],
         ];
     }
 

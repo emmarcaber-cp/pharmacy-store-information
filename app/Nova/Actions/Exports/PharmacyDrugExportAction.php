@@ -2,26 +2,20 @@
 
 namespace App\Nova\Actions\Exports;
 
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Fields\Currency;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Coreproc\NovaDataSync\Export\Jobs\ExportProcessor;
 use App\Jobs\ExportProcessor\PharmacyDrugExportProcessor;
-use Coreproc\NovaDataSync\Export\Nova\Action\ExportNovaAction;
 
-class PharmacyDrugExportAction extends ExportNovaAction
+class PharmacyDrugExportAction extends BaseExportAction
 {
     protected function processor(ActionFields $fields, Collection $models): ExportProcessor
     {
-        return new PharmacyDrugExportProcessor([
-            'pharmacy_id' => $fields->pharmacy_id,
-            'drug_id' => $fields->drug_id,
-            'price_from' => $fields->price_from,
-            'price_to' => $fields->price_to,
-        ]);
+        return new PharmacyDrugExportProcessor($fields->toArray());
     }
 
     public function fields(NovaRequest $request): array
@@ -53,12 +47,25 @@ class PharmacyDrugExportAction extends ExportNovaAction
                 )
                 ->displayUsingLabels(),
 
-            Number::make('Price - FROM', 'price_from')
-                ->placeholder('MIN'),
+            Currency::make('From Price', 'price_from')
+                ->displayUsing(function ($value) {
+                    return $value ? number_format($value, 2) : null;
+                })
+                ->placeholder('MIN')
+                ->rules(
+                    'required',
+                    'lte:price_to'
+                ),
 
-            Number::make('Price - TO', 'price_to')
+            Currency::make('To Price', 'price_to')
+                ->displayUsing(function ($value) {
+                    return $value ? number_format($value, 2) : null;
+                })
                 ->placeholder('MAX')
-                ->rules('required_with:price_from', 'gte:price_from')
+                ->rules(
+                    'required',
+                    'gte:price_from'
+                )
         ];
     }
 }
