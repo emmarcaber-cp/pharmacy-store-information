@@ -20,11 +20,11 @@ class PatientExportProcessor extends BaseExportProcessor
                 'patients.contact_no as contact_number'
             );
 
-        if ($this->filters['doctor_id'] ?? false) {
+        if (isset($this->filters['doctor_id'])) {
             $query->where('doctor_id', $this->filters['doctor_id']);
         }
 
-        if ($this->filters['sex'] ?? false) {
+        if (isset($this->filters['sex'])) {
             $query->where('sex', $this->filters['sex']);
         }
 

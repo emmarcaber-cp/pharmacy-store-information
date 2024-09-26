@@ -11,7 +11,7 @@ class DoctorExportProcessor extends BaseExportProcessor
     {
         $query = Doctor::query();
 
-        if ($this->filters['specialty'] ?? false) {
+        if (isset($this->filters['specialty'])) {
             return $query->where('specialty', $this->filters['specialty']);
         }
 

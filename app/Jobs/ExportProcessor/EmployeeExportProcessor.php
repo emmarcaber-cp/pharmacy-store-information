@@ -17,7 +17,7 @@ class EmployeeExportProcessor extends BaseExportProcessor
                 'employees.name as employee',
             );
 
-        if ($this->filters['pharmacy_id'] ?? false) {
+        if (isset($this->filters['pharmacy_id'])) {
             $query->where('pharmacy_id', $this->filters['pharmacy_id']);
         }
 

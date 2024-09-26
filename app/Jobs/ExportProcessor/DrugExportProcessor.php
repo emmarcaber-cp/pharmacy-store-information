@@ -17,7 +17,7 @@ class DrugExportProcessor extends BaseExportProcessor
                 'drugs.trade_name'
             );
 
-        if ($this->filters['drug_manufacturer_id'] ?? false) {
+        if (isset($this->filters['drug_manufacturer_id'])) {
             $query->where('drug_manufacturer_id', $this->filters['drug_manufacturer_id']);
         }
 
